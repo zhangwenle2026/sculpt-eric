@@ -2,7 +2,7 @@
   "name": "Sculpt Eric",
   "short_name": "Sculpt Eric",
   "description": "Your Personal Fitness Trainer — Track body fat, weight, pull-ups, and your transformation story.",
-  "start_url": "/",
+  "start_url": "/sculpt-eric/",
   "display": "standalone",
   "background_color": "#080808",
   "theme_color": "#080808",
