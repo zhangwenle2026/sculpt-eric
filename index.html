@@ -110,8 +110,41 @@
 </style>
 <style>
 /* ============================================================
-   SCULPT ERIC v2.0 — Premium Fitness · Black/White/Green
+   SCULPT ERIC v2.1 — Premium Fitness · Black/White/Green
    Inspired by Apple Fitness+ · Whoop · Nike Training Club
+   ============================================================
+
+   ██████████████████████████████████████████████████████
+   DESIGN RULES — READ BEFORE EDITING
+   ██████████████████████████████████████████████████████
+
+   1. NO EMOJI anywhere in UI — zero exceptions.
+      Use SVG icons (inline or via viewBox) only.
+      Emoji destroys premium visual consistency.
+
+   2. COLOR PALETTE — strictly 3 colors:
+      - Black  : #080808 (bg), #111111 (card), #181818 (surface)
+      - White  : #FFFFFF (primary text), #CCC (secondary), #888 (muted)
+      - Green  : #00E676 (single accent — use sparingly)
+      Do NOT add purple, orange, blue, red, pink, or gradients.
+      Exception: error states may use #FF3B30 (text only, never fill).
+
+   3. TYPOGRAPHY — Apple-level hierarchy:
+      - Hero numbers  : 80–96px, weight 800, letter-spacing -4px
+      - Section label : 11px, weight 700, letter-spacing 3px, uppercase
+      - Body text     : 14–17px, weight 400–600
+      No decorative fonts. SF Pro / -apple-system only.
+
+   4. NO GAMIFICATION:
+      - No badge bursts, no confetti, no achievement popups
+      - No star ratings, no XP bars, no level-up animations
+      - Data insight > entertainment
+
+   5. WHITESPACE IS PREMIUM:
+      - Never crowd elements. When in doubt, add more padding.
+      - Card padding minimum: 20px
+      - Section gap minimum: 24px
+
    ============================================================ */
 :root {
   --black:   #080808;
@@ -721,8 +754,8 @@ body {
   background: var(--green-dim);
   border: 1px solid rgba(0,230,118,0.2);
   display: flex; align-items: center; justify-content: center;
-  font-size: 24px;
   flex-shrink: 0;
+  /* No emoji — SVG icons only */
 }
 .program-info { flex: 1; }
 .program-name {
@@ -898,8 +931,8 @@ body {
   background: var(--green-dim);
   border: 1px solid rgba(0,230,118,0.2);
   display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
   flex-shrink: 0;
+  /* No emoji — SVG icons only */
 }
 .gallery-prompt-text { font-size: 14px; color: var(--gray2); line-height: 1.5; }
 .gallery-prompt-text strong { color: var(--white); }
@@ -927,7 +960,7 @@ body {
   padding: 80px 32px;
   text-align: center;
 }
-.gallery-empty-icon { font-size: 48px; margin-bottom: 16px; }
+.gallery-empty-icon { margin-bottom: 20px; display:flex; align-items:center; justify-content:center; }
 .gallery-empty-title {
   font-size: 20px; font-weight: 700;
   letter-spacing: -0.5px;
@@ -1214,7 +1247,9 @@ body {
   <div class="section-label">Programs</div>
 
   <div class="program-card">
-    <div class="program-icon">🏋️</div>
+    <div class="program-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="#00E676"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29l-1.43-1.43z"/></svg>
+    </div>
     <div class="program-info">
       <div class="program-name">Pull-Up Mastery</div>
       <div class="program-meta">8 Weeks · Progressive Overload</div>
@@ -1223,7 +1258,9 @@ body {
   </div>
 
   <div class="program-card" style="opacity:0.5">
-    <div class="program-icon">🔥</div>
+    <div class="program-icon" style="opacity:0.35">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="#888"><path d="M13.5 0.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5 0.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>
+    </div>
     <div class="program-info">
       <div class="program-name">HIIT Burn</div>
       <div class="program-meta">Coming Soon</div>
@@ -1292,13 +1329,17 @@ body {
   </div>
 
   <div class="gallery-prompt">
-    <div class="gallery-prompt-icon">📷</div>
+    <div class="gallery-prompt-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="#00E676"><path d="M9 3L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2h-3.17L15 3H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.65 0-3 1.35-3 3s1.35 3 3 3 3-1.35 3-3-1.35-3-3-3z"/></svg>
+    </div>
     <div class="gallery-prompt-text">Send me a <strong>workout photo</strong> → I'll auto-archive it with date and caption.</div>
   </div>
 
   <div id="g-grid" class="photo-grid" style="display:none"></div>
   <div id="g-empty" class="gallery-empty">
-    <div class="gallery-empty-icon">🖼️</div>
+    <div class="gallery-empty-icon">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="#333"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+    </div>
     <div class="gallery-empty-title">Your Story Begins Here</div>
     <div class="gallery-empty-sub">Every photo is proof of work done.<br>Start documenting your transformation.</div>
   </div>
@@ -1465,7 +1506,7 @@ window.SCULPT = (function() {
     $('body-fat-hero').innerHTML = `${fmt1(latest)}<span class="unit">%</span>`;
     $('body-fat-caption').innerHTML = diff > 0
       ? `Target: <strong>12.0%</strong> — Still <strong>${fmt1(diff)}%</strong> to go. Stay consistent.`
-      : `<strong>🎯 Goal reached!</strong> You've hit 12% body fat. Incredible work.`;
+      : `<strong>Goal reached.</strong> You've hit 12% body fat. Incredible work.`;
     $('fat-pct-num').textContent = Math.round(pct) + '%';
     $('fat-fill').style.width = pct + '%';
     $('fat-start-ep').textContent = fmt1(start) + '%';
@@ -1515,7 +1556,7 @@ window.SCULPT = (function() {
       $('body-wt-hero').innerHTML = `${fmt1(latest)}<span class="unit">kg</span>`;
       $('body-wt-caption').innerHTML = diff > 0
         ? `Target: <strong>72 kg</strong> — <strong>+${fmt1(diff)} kg</strong> more to build.`
-        : `<strong>🎯 Goal reached!</strong> You've built to 72 kg. Respect.`;
+        : `<strong>Goal reached.</strong> You've built to 72 kg. Respect.`;
       $('wt-pct-num').textContent = Math.round(pct) + '%';
       $('wt-fill').style.width = pct + '%';
       $('wt-start-ep').textContent = fmt1(D.weight.start) + ' kg';
