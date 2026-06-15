@@ -1149,6 +1149,22 @@ body {
   background: #D4A853;
   border-radius: 1px;
 }
+.g-card-num {
+  position: absolute;
+  top: 10px; left: 10px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: rgba(253,251,247,0.5);
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  padding: 3px 7px;
+  line-height: 1;
+}
 
 /* ============================================================
    SHARED UTILITIES
@@ -1879,9 +1895,11 @@ window.SCULPT = (function() {
       const d = new Date(p.date + 'T00:00:00');
       const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
       const dateLabel = d.getDate() + ' ' + months[d.getMonth()];
+      const num = String(i + 1).padStart(2, '0');
       return `<div class="g-card" style="animation-delay:${i*0.06}s">
         <img src="${p.src}" alt="" loading="lazy">
         <div class="g-card-mask"></div>
+        <div class="g-card-num">${num}</div>
         <div class="g-card-accent"></div>
         <div class="g-card-body">
           <div class="g-card-date">${dateLabel}</div>
