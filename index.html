@@ -3,483 +3,1457 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Sculpt Eric v1.0.0</title>
+<title>Sculpt Eric</title>
 <style>
+/* ============================================================
+   SCULPT ERIC v2.0 — Premium Fitness · Black/White/Green
+   Inspired by Apple Fitness+ · Whoop · Nike Training Club
+   ============================================================ */
 :root {
-  --bg:#0a0a14; --bg2:#12121f; --bg3:#1a1a2e; --card:#1e1e32; --border:#2a2a42;
-  --purple:#7c5cfc; --purple2:#9d7dff; --orange:#ff7a2f; --green:#22c97a;
-  --amber:#f5a623; --red:#ff4d6d; --text:#f0f0ff; --text2:#9090b0; --text3:#5a5a7a;
+  --black:   #080808;
+  --black2:  #111111;
+  --black3:  #181818;
+  --card:    #141414;
+  --border:  #222222;
+  --border2: #2a2a2a;
+  --green:   #00E676;
+  --green2:  #00C853;
+  --green-dim: rgba(0,230,118,0.12);
+  --green-glow: 0 0 40px rgba(0,230,118,0.15);
+  --white:   #FFFFFF;
+  --gray1:   #CCCCCC;
+  --gray2:   #888888;
+  --gray3:   #555555;
+  --gray4:   #333333;
+  --red:     #FF3B30;
+  --amber:   #FF9F0A;
+  --radius:  20px;
+  --radius-sm: 14px;
 }
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;
-  background:var(--bg);color:var(--text);max-width:430px;margin:0 auto;min-height:100vh;overflow-x:hidden}
-.header{background:linear-gradient(160deg,#1a0a3e 0%,#0e0e22 60%,var(--bg) 100%);
-  padding:44px 24px 20px;position:relative;overflow:hidden}
-.header::before{content:'';position:absolute;top:-60px;right:-40px;width:200px;height:200px;
-  background:radial-gradient(circle,rgba(124,92,252,.3) 0%,transparent 70%);pointer-events:none}
-.header-top{display:flex;align-items:center;justify-content:space-between}
-.header-logo{display:flex;align-items:center;gap:10px}
-.logo-icon{width:40px;height:40px;border-radius:12px;
-  background:linear-gradient(135deg,var(--purple),#4a90e2);
-  display:flex;align-items:center;justify-content:center;font-size:20px}
-.header-name{font-size:22px;font-weight:800;letter-spacing:-.5px}
-.header-sub{font-size:12px;color:var(--text2);margin-top:1px}
-.streak-box{background:rgba(124,92,252,.15);border:1px solid rgba(124,92,252,.3);
-  border-radius:10px;padding:6px 12px;text-align:center}
-.streak-num{font-size:18px;font-weight:800;color:var(--purple2)}
-.streak-label{font-size:10px;color:var(--text2)}
-.tab-bar{display:flex;background:var(--bg2);border-bottom:1px solid var(--border);
-  position:sticky;top:0;z-index:100}
-.tab{flex:1;padding:12px 4px 10px;text-align:center;cursor:pointer;
-  transition:all .2s;border-bottom:2px solid transparent}
-.tab-icon{font-size:16px;display:block;margin-bottom:2px}
-.tab-label{font-size:11px;font-weight:600;color:var(--text3)}
-.tab.active .tab-label{color:var(--purple2)}
-.tab.active{border-bottom-color:var(--purple)}
-.page{display:none;padding:16px;padding-bottom:40px}
-.page.active{display:block}
-.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.sec-head h2{font-size:16px;font-weight:700}
-.badge{font-size:11px;color:var(--text2);background:var(--bg3);border:1px solid var(--border);
-  border-radius:20px;padding:3px 10px}
-.ring-card{background:var(--card);border:1px solid var(--border);border-radius:20px;
-  padding:24px 20px;margin-bottom:14px;display:flex;align-items:center;gap:20px}
-.ring-wrap{position:relative;width:110px;height:110px;flex-shrink:0}
-.ring-wrap svg{width:110px;height:110px;transform:rotate(-90deg)}
-.ring-track{fill:none;stroke:var(--border);stroke-width:10}
-.ring-fill{fill:none;stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 1.2s ease}
-.ring-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
-.ring-val{font-size:22px;font-weight:800}
-.ring-unit{font-size:11px;color:var(--text2)}
-.ring-info{flex:1}
-.ring-title{font-size:13px;color:var(--text2);margin-bottom:10px}
-.ring-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.ring-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.ring-rlabel{font-size:12px;color:var(--text2)}
-.ring-rval{font-size:14px;font-weight:700;margin-left:auto}
-.prog-strip{background:var(--card);border:1px solid var(--border);border-radius:14px;
-  padding:14px 16px;margin-bottom:14px}
-.prog-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.prog-head .lbl{font-size:12px;color:var(--text2)}
-.prog-head .pct{font-size:12px;font-weight:700}
-.prog-bg{background:var(--bg3);border-radius:6px;height:8px;overflow:hidden}
-.prog-fg{height:100%;border-radius:6px;transition:width 1s ease}
-.prog-fg.fat{background:linear-gradient(90deg,var(--purple),var(--orange))}
-.prog-fg.wt{background:linear-gradient(90deg,var(--purple),var(--green))}
-.chart-card{background:var(--card);border:1px solid var(--border);border-radius:20px;
-  padding:16px;margin-bottom:14px}
-.chart-title{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:14px}
-.chart-svg{width:100%;overflow:visible;display:block}
-.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.stat-box{background:var(--card);border:1px solid var(--border);border-radius:14px;
-  padding:12px;text-align:center}
-.stat-lbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-.stat-val{font-size:18px;font-weight:800}
-.tl-card{background:var(--card);border:1px solid var(--border);border-radius:20px;
-  padding:16px;margin-bottom:14px}
-.tl-title{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:14px}
-.tl-item{display:flex;align-items:flex-start;gap:12px;padding-bottom:14px;position:relative}
-.tl-item:not(:last-child)::after{content:'';position:absolute;left:15px;top:30px;
-  width:2px;height:calc(100% - 14px);background:var(--border)}
-.tl-dot{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:flex;
-  align-items:center;justify-content:center;font-size:13px;font-weight:700;position:relative;z-index:1}
-.tl-content{flex:1;padding-top:4px}
-.tl-date{font-size:11px;color:var(--text3);margin-bottom:2px}
-.tl-text{font-size:13px;color:var(--text)}
-.tl-val{font-weight:700}
-.hint-card{background:linear-gradient(135deg,rgba(124,92,252,.15),rgba(74,144,226,.1));
-  border:1px solid rgba(124,92,252,.3);border-radius:14px;padding:14px 16px;
-  margin-bottom:14px;display:flex;align-items:center;gap:12px}
-.hint-icon{font-size:24px;flex-shrink:0}
-.hint-txt{font-size:13px;color:var(--text2);line-height:1.5}
-.hint-txt strong{color:var(--purple2)}
-.g-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
-.g-stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px;text-align:center}
-.g-stat-num{font-size:24px;font-weight:800;color:var(--purple2)}
-.g-stat-lbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px}
-.photo-grid{columns:2;column-gap:10px}
-.photo-item{break-inside:avoid;margin-bottom:10px;border-radius:14px;overflow:hidden;
-  background:var(--card);border:1px solid var(--border);position:relative}
-.photo-item img{width:100%;display:block;object-fit:cover;min-height:120px}
-.photo-overlay{position:absolute;bottom:0;left:0;right:0;padding:24px 10px 8px;
-  background:linear-gradient(transparent,rgba(10,10,20,.9))}
-.photo-overlay-date{font-size:11px;font-weight:600;color:#fff}
-.photo-overlay-cap{font-size:10px;color:rgba(255,255,255,.6)}
-.gallery-empty{text-align:center;padding:60px 20px;color:var(--text3)}
-.gallery-empty-icon{font-size:56px;margin-bottom:14px;display:block}
-.gallery-empty-title{font-size:16px;font-weight:700;color:var(--text2);margin-bottom:6px}
-.gallery-empty-sub{font-size:13px;line-height:1.6}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { background:var(--black); }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  background: var(--black);
+  color: var(--white);
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- HEADER ---- */
+.header {
+  padding: 52px 24px 24px;
+  background: var(--black);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.app-wordmark {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gray2);
+}
+.streak-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--green-dim);
+  border: 1px solid rgba(0,230,118,0.25);
+  border-radius: 40px;
+  padding: 6px 14px;
+}
+.streak-num {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--green);
+  letter-spacing: -0.5px;
+}
+.streak-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--green);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* ---- BOTTOM TAB BAR ---- */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  background: rgba(8,8,8,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  display: flex;
+  z-index: 200;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.tab {
+  flex: 1;
+  padding: 10px 4px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.tab-icon-wrap {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.tab.active .tab-icon-wrap {
+  background: var(--green-dim);
+}
+.tab-icon {
+  width: 18px;
+  height: 18px;
+  fill: var(--gray3);
+  transition: fill 0.2s;
+}
+.tab.active .tab-icon { fill: var(--green); }
+.tab-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--gray3);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.tab.active .tab-label { color: var(--green); }
+
+/* ---- PAGE WRAPPER ---- */
+.page { display: none; padding: 0 0 90px; }
+.page.active { display: block; }
+
+/* ---- SECTION LABEL ---- */
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray2);
+  padding: 28px 24px 12px;
+}
+
+/* ============================================================
+   TODAY PAGE
+   ============================================================ */
+.today-hero {
+  padding: 32px 24px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.today-date {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray2);
+  margin-bottom: 8px;
+}
+.today-headline {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.today-headline span { color: var(--green); }
+.today-sub {
+  font-size: 14px;
+  color: var(--gray2);
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+/* Coach card */
+.coach-card {
+  margin: 0 16px 16px;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.coach-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--green), transparent);
+}
+.coach-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 10px;
+}
+.coach-message {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--white);
+  letter-spacing: -0.3px;
+}
+
+/* Three rings */
+.rings-row {
+  display: flex;
+  gap: 12px;
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+.ring-tile {
+  flex: 1;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.ring-svg-wrap { position: relative; width: 72px; height: 72px; }
+.ring-svg-wrap svg { width: 72px; height: 72px; transform: rotate(-90deg); }
+.ring-track { fill: none; stroke: var(--border2); stroke-width: 7; }
+.ring-fill { fill: none; stroke-width: 7; stroke-linecap: round; transition: stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1); }
+.ring-center-text {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 16px; font-weight: 800;
+  color: var(--white); letter-spacing: -0.5px;
+  text-align: center;
+  line-height: 1;
+}
+.ring-tile-label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gray2); text-align: center;
+}
+
+/* Habit row */
+.habit-row {
+  display: flex;
+  gap: 10px;
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+.habit-tile {
+  flex: 1;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  text-align: center;
+}
+.habit-num {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.habit-num.green { color: var(--green); }
+.habit-num.amber { color: var(--amber); }
+.habit-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray2);
+}
+
+/* Insight card */
+.insight-card {
+  margin: 0 16px 16px;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.insight-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray2);
+  margin-bottom: 14px;
+}
+.insight-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.insight-big {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1;
+  color: var(--white);
+}
+.insight-big.green { color: var(--green); }
+.insight-unit {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--gray2);
+}
+.insight-sub {
+  font-size: 14px;
+  color: var(--gray2);
+  line-height: 1.5;
+}
+.insight-sub strong { color: var(--white); }
+
+/* Upcoming */
+.upcoming-card {
+  margin: 0 16px;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.upcoming-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.upcoming-item:last-child { border-bottom: none; }
+.upcoming-item:active { background: var(--black3); }
+.upcoming-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+}
+.upcoming-dot.dim { background: var(--gray4); }
+.upcoming-text { flex: 1; }
+.upcoming-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: -0.3px;
+  margin-bottom: 2px;
+}
+.upcoming-meta {
+  font-size: 12px;
+  color: var(--gray2);
+}
+.upcoming-arrow {
+  font-size: 12px;
+  color: var(--gray3);
+}
+
+/* ============================================================
+   BODY PAGE
+   ============================================================ */
+.hero-metric {
+  padding: 32px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray2);
+  margin-bottom: 12px;
+}
+.hero-number {
+  font-size: 88px;
+  font-weight: 800;
+  letter-spacing: -4px;
+  line-height: 0.9;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.hero-number .unit {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--gray2);
+}
+.hero-number.green { color: var(--green); }
+.hero-caption {
+  font-size: 15px;
+  color: var(--gray2);
+  line-height: 1.5;
+  margin-top: 10px;
+}
+.hero-caption strong { color: var(--white); }
+
+/* Progress bar premium */
+.progress-block {
+  padding: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 14px;
+}
+.progress-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray2);
+}
+.progress-pct {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: var(--white);
+}
+.progress-track {
+  height: 6px;
+  background: var(--border2);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--green);
+  transition: width 1.2s cubic-bezier(.4,0,.2,1);
+  position: relative;
+}
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  right: 0; top: -2px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+}
+.progress-endpoints {
+  display: flex;
+  justify-content: space-between;
+}
+.progress-ep {
+  font-size: 12px;
+  color: var(--gray2);
+}
+.progress-ep span { color: var(--white); font-weight: 600; }
+
+/* KPI row */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+.kpi-cell {
+  padding: 20px 16px;
+  border-right: 1px solid var(--border);
+}
+.kpi-cell:last-child { border-right: none; }
+.kpi-val {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.kpi-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray2);
+}
+
+/* Chart premium */
+.chart-block {
+  padding: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.chart-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray2);
+}
+.chart-current {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+}
+.chart-svg { width: 100%; overflow: visible; display: block; }
+
+/* Timeline premium */
+.timeline-block { padding: 24px; }
+.timeline-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray2);
+  margin-bottom: 20px;
+}
+.tl-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding-bottom: 20px;
+  position: relative;
+}
+.tl-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 14px; top: 28px;
+  width: 1px;
+  height: calc(100% - 8px);
+  background: var(--border2);
+}
+.tl-node {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+  border: 1px solid var(--border2);
+  background: var(--black3);
+  color: var(--gray2);
+  position: relative; z-index: 1;
+}
+.tl-node.green {
+  border-color: rgba(0,230,118,0.4);
+  background: rgba(0,230,118,0.08);
+  color: var(--green);
+}
+.tl-body { flex: 1; padding-top: 2px; }
+.tl-date {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gray3);
+  letter-spacing: 1px;
+  margin-bottom: 3px;
+}
+.tl-desc { font-size: 14px; color: var(--gray1); line-height: 1.4; }
+.tl-desc strong { color: var(--white); font-weight: 700; }
+
+/* ============================================================
+   TRAIN PAGE
+   ============================================================ */
+.train-hero {
+  padding: 32px 24px 28px;
+  border-bottom: 1px solid var(--border);
+}
+.train-hero-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 12px;
+}
+.train-hero-title {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+.train-hero-sub {
+  font-size: 14px;
+  color: var(--gray2);
+  line-height: 1.5;
+}
+.train-hero-sub strong { color: var(--white); }
+
+.program-card {
+  margin: 0 16px 12px;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.program-icon {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  background: var(--green-dim);
+  border: 1px solid rgba(0,230,118,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.program-info { flex: 1; }
+.program-name {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.program-meta {
+  font-size: 12px;
+  color: var(--gray2);
+}
+.program-action {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--green);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.program-action-icon {
+  width: 12px; height: 12px;
+  border-top: 2px solid #000;
+  border-right: 2px solid #000;
+  transform: rotate(45deg) translate(-1px, 1px);
+}
+
+.pullup-card {
+  margin: 0 16px 16px;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.pullup-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pullup-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray2);
+}
+.pullup-best {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--green);
+}
+.pullup-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  padding: 16px;
+}
+.pullup-day {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--black3);
+  border: 1px solid var(--border);
+  color: var(--gray3);
+  transition: all 0.2s;
+}
+.pullup-day.done {
+  background: var(--green-dim);
+  border-color: rgba(0,230,118,0.3);
+  color: var(--green);
+}
+.pullup-day.today {
+  border-color: var(--green);
+  color: var(--white);
+}
+.pullup-day.rest {
+  background: var(--border);
+  color: var(--gray4);
+}
+
+/* Recovery bar */
+.recover-card {
+  margin: 0 16px 12px;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.recover-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.recover-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray2);
+}
+.recover-score {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  color: var(--green);
+}
+.recover-bar-track {
+  height: 8px;
+  background: var(--black3);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.recover-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1.2s cubic-bezier(.4,0,.2,1);
+}
+.recover-hint {
+  font-size: 13px;
+  color: var(--gray2);
+  line-height: 1.5;
+}
+.recover-hint strong { color: var(--white); }
+
+/* ============================================================
+   GALLERY PAGE
+   ============================================================ */
+.gallery-stats {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+}
+.gstat-cell {
+  flex: 1;
+  padding: 20px 16px;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.gstat-cell:last-child { border-right: none; }
+.gstat-num {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.gstat-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray2);
+}
+
+.gallery-prompt {
+  margin: 16px;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.gallery-prompt-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--green-dim);
+  border: 1px solid rgba(0,230,118,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.gallery-prompt-text { font-size: 14px; color: var(--gray2); line-height: 1.5; }
+.gallery-prompt-text strong { color: var(--white); }
+
+.photo-grid { columns: 2; column-gap: 8px; padding: 8px 16px 0; }
+.photo-item {
+  break-inside: avoid;
+  margin-bottom: 8px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--border);
+  position: relative;
+}
+.photo-item img { width: 100%; display: block; object-fit: cover; min-height: 140px; }
+.photo-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 28px 12px 10px;
+  background: linear-gradient(transparent, rgba(8,8,8,0.92));
+}
+.photo-overlay-date { font-size: 12px; font-weight: 700; color: var(--white); }
+.photo-overlay-cap { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+.gallery-empty {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 80px 32px;
+  text-align: center;
+}
+.gallery-empty-icon { font-size: 48px; margin-bottom: 16px; }
+.gallery-empty-title {
+  font-size: 20px; font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--white); margin-bottom: 8px;
+}
+.gallery-empty-sub { font-size: 14px; color: var(--gray2); line-height: 1.6; }
+
+/* ============================================================
+   SHARED UTILITIES
+   ============================================================ */
+.divider { height: 1px; background: var(--border); }
+.spacer-8 { height: 8px; }
+.spacer-16 { height: 16px; }
+
+/* Page fade-in */
+.page.active { animation: pagein 0.25s ease; }
+@keyframes pagein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="header">
-  <div class="header-top">
-    <div class="header-logo">
-      <div class="logo-icon">💪</div>
-      <div>
-        <div class="header-name">Sculpt Eric</div>
-        <div class="header-sub">Your Fitness Journey</div>
-      </div>
-    </div>
-    <div class="streak-box">
-      <div class="streak-num" id="dayCount">1</div>
-      <div class="streak-label">DAY</div>
+  <div class="header-row">
+    <div class="app-wordmark">Sculpt Eric</div>
+    <div class="streak-pill">
+      <span class="streak-num" id="dayCount">1</span>
+      <span class="streak-label">Day Streak</span>
     </div>
   </div>
 </div>
 
-<div class="tab-bar">
-  <div class="tab active" onclick="SCULPT.switchTab('fat')">
-    <span class="tab-icon">📉</span><span class="tab-label">体脂管理</span>
-  </div>
-  <div class="tab" onclick="SCULPT.switchTab('muscle')">
-    <span class="tab-icon">🏋️</span><span class="tab-label">增肌管理</span>
-  </div>
-  <div class="tab" onclick="SCULPT.switchTab('gallery')">
-    <span class="tab-icon">📸</span><span class="tab-label">健身相册</span>
-  </div>
-</div>
-
-<svg width="0" height="0" style="position:absolute;top:0;left:0">
+<!-- SVG DEFS -->
+<svg width="0" height="0" style="position:absolute">
   <defs>
-    <linearGradient id="fatGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#7c5cfc"/><stop offset="100%" stop-color="#ff7a2f"/>
+    <linearGradient id="gGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00E676"/>
+      <stop offset="100%" stop-color="#00BFA5"/>
     </linearGradient>
-    <linearGradient id="wtGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#7c5cfc"/><stop offset="100%" stop-color="#22c97a"/>
+    <linearGradient id="rGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF9F0A"/>
+      <stop offset="100%" stop-color="#FF3B30"/>
     </linearGradient>
   </defs>
 </svg>
 
-<!-- PAGE FAT -->
-<div id="page-fat" class="page active">
-  <div class="sec-head">
-    <h2>体脂管理</h2><span class="badge">目标 12%</span>
+<!-- ======================================================
+     PAGE: TODAY
+     ====================================================== -->
+<div id="page-today" class="page active">
+
+  <div class="today-hero">
+    <div class="today-date" id="today-date-str">TUESDAY · JUNE 16</div>
+    <div class="today-headline">Good morning,<br><span>Eric.</span></div>
+    <div class="today-sub">Your personal trainer has a plan for today.</div>
   </div>
-  <div class="ring-card">
-    <div class="ring-wrap">
-      <svg viewBox="0 0 110 110">
-        <circle class="ring-track" cx="55" cy="55" r="45"/>
-        <circle id="fat-ring" class="ring-fill" cx="55" cy="55" r="45"
-          stroke="url(#fatGrad)" stroke-dasharray="283" stroke-dashoffset="283"/>
-      </svg>
-      <div class="ring-center">
-        <div class="ring-val" id="fat-ring-val" style="color:var(--orange)">16%</div>
-        <div class="ring-unit">当前体脂</div>
-      </div>
-    </div>
-    <div class="ring-info">
-      <div class="ring-title">Body Fat</div>
-      <div class="ring-row">
-        <div class="ring-dot" style="background:var(--text3)"></div>
-        <div class="ring-rlabel">起始</div>
-        <div class="ring-rval">16.0%</div>
-      </div>
-      <div class="ring-row">
-        <div class="ring-dot" style="background:var(--orange)"></div>
-        <div class="ring-rlabel">当前</div>
-        <div class="ring-rval" id="fat-cur" style="color:var(--orange)">16.0%</div>
-      </div>
-      <div class="ring-row">
-        <div class="ring-dot" style="background:var(--green)"></div>
-        <div class="ring-rlabel">目标</div>
-        <div class="ring-rval" style="color:var(--green)">12.0%</div>
-      </div>
-      <div class="ring-row">
-        <div class="ring-dot" style="background:var(--red)"></div>
-        <div class="ring-rlabel">还需降</div>
-        <div class="ring-rval" id="fat-diff" style="color:var(--red)">4.0%</div>
-      </div>
+
+  <!-- AI Coach -->
+  <div class="section-label">AI Coach</div>
+  <div class="coach-card">
+    <div class="coach-eyebrow">Today's Assessment</div>
+    <div class="coach-message" id="coach-msg">
+      You're making real progress. At your current pace, you'll hit your body fat target by September. Today: push hard on pull-ups. Recovery looks good — go all in.
     </div>
   </div>
-  <div class="prog-strip">
-    <div class="prog-head">
-      <span class="lbl">减脂进度</span>
-      <span class="pct" id="fat-pct" style="color:var(--purple2)">0%</span>
+
+  <!-- Three Rings -->
+  <div class="section-label">Daily Goals</div>
+  <div class="rings-row">
+    <div class="ring-tile">
+      <div class="ring-svg-wrap">
+        <svg viewBox="0 0 72 72">
+          <circle class="ring-track" cx="36" cy="36" r="29"/>
+          <circle id="ring-fat" class="ring-fill" cx="36" cy="36" r="29"
+            stroke="url(#rGrad)" stroke-dasharray="182" stroke-dashoffset="182"/>
+        </svg>
+        <div class="ring-center-text" id="ring-fat-txt">0%</div>
+      </div>
+      <div class="ring-tile-label">Fat Loss</div>
     </div>
-    <div class="prog-bg"><div class="prog-fg fat" id="fat-bar" style="width:0%"></div></div>
+    <div class="ring-tile">
+      <div class="ring-svg-wrap">
+        <svg viewBox="0 0 72 72">
+          <circle class="ring-track" cx="36" cy="36" r="29"/>
+          <circle id="ring-muscle" class="ring-fill" cx="36" cy="36" r="29"
+            stroke="url(#gGrad)" stroke-dasharray="182" stroke-dashoffset="182"/>
+        </svg>
+        <div class="ring-center-text" id="ring-muscle-txt">0%</div>
+      </div>
+      <div class="ring-tile-label">Muscle</div>
+    </div>
+    <div class="ring-tile">
+      <div class="ring-svg-wrap">
+        <svg viewBox="0 0 72 72">
+          <circle class="ring-track" cx="36" cy="36" r="29"/>
+          <circle id="ring-streak" class="ring-fill" cx="36" cy="36" r="29"
+            stroke="#00E676" stroke-dasharray="182" stroke-dashoffset="182"/>
+        </svg>
+        <div class="ring-center-text" id="ring-streak-txt">0</div>
+      </div>
+      <div class="ring-tile-label">Streak</div>
+    </div>
   </div>
-  <div class="chart-card">
-    <div class="chart-title">📈 体脂率趋势</div>
-    <svg id="fat-svg" class="chart-svg" viewBox="0 0 360 160"></svg>
+
+  <!-- Key stats -->
+  <div class="habit-row">
+    <div class="habit-tile">
+      <div class="habit-num green" id="today-fat-val">16.0<span style="font-size:16px;font-weight:600;color:var(--gray2)">%</span></div>
+      <div class="habit-lbl">Body Fat</div>
+    </div>
+    <div class="habit-tile">
+      <div class="habit-num" id="today-wt-val">66.4<span style="font-size:16px;font-weight:600;color:var(--gray2)">kg</span></div>
+      <div class="habit-lbl">Weight</div>
+    </div>
+    <div class="habit-tile">
+      <div class="habit-num amber" id="today-days-val">1</div>
+      <div class="habit-lbl">Days In</div>
+    </div>
   </div>
-  <div class="tl-card">
-    <div class="tl-title">📅 体脂记录</div>
+
+  <!-- Body insight -->
+  <div class="section-label">Body Insight</div>
+  <div class="insight-card">
+    <div class="insight-eyebrow">Fat Loss Progress</div>
+    <div class="insight-stat">
+      <div class="insight-big green" id="insight-pct">0</div>
+      <div class="insight-unit">% to goal</div>
+    </div>
+    <div class="insight-sub" id="insight-caption">
+      You started at <strong>16.0%</strong> — target is <strong>12.0%</strong>. Keep the deficit going.
+    </div>
+  </div>
+
+  <!-- Upcoming -->
+  <div class="section-label">Up Next</div>
+  <div class="upcoming-card">
+    <div class="upcoming-item">
+      <div class="upcoming-dot"></div>
+      <div class="upcoming-text">
+        <div class="upcoming-title">Pull-Up Training</div>
+        <div class="upcoming-meta">Upper Body · Strength</div>
+      </div>
+      <div class="upcoming-arrow">›</div>
+    </div>
+    <div class="upcoming-item">
+      <div class="upcoming-dot"></div>
+      <div class="upcoming-text">
+        <div class="upcoming-title">Log Today's Weight</div>
+        <div class="upcoming-meta">Body Tracking · 1 min</div>
+      </div>
+      <div class="upcoming-arrow">›</div>
+    </div>
+    <div class="upcoming-item">
+      <div class="upcoming-dot dim"></div>
+      <div class="upcoming-text">
+        <div class="upcoming-title">Evening Recovery Check</div>
+        <div class="upcoming-meta">Recover · Tonight</div>
+      </div>
+      <div class="upcoming-arrow">›</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ======================================================
+     PAGE: BODY
+     ====================================================== -->
+<div id="page-body" class="page">
+
+  <!-- Fat Hero -->
+  <div class="hero-metric">
+    <div class="hero-eyebrow">Current Body Fat</div>
+    <div class="hero-number" id="body-fat-hero">16.0<span class="unit">%</span></div>
+    <div class="hero-caption" id="body-fat-caption">
+      Target: <strong>12.0%</strong> — Still <strong>4.0%</strong> to go. You're on track.
+    </div>
+  </div>
+
+  <!-- Fat Progress -->
+  <div class="progress-block">
+    <div class="progress-header">
+      <div class="progress-label">Toward Your Goal</div>
+      <div class="progress-pct" id="fat-pct-num">0%</div>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="fat-fill" style="width:0%"></div>
+    </div>
+    <div class="progress-endpoints">
+      <div class="progress-ep">Start <span id="fat-start-ep">16.0%</span></div>
+      <div class="progress-ep">Goal <span>12.0%</span></div>
+    </div>
+  </div>
+
+  <!-- Fat chart -->
+  <div class="chart-block">
+    <div class="chart-header">
+      <div class="chart-title">Fat Loss Trend</div>
+      <div class="chart-current" id="fat-chart-current">—</div>
+    </div>
+    <svg id="fat-svg" class="chart-svg" viewBox="0 0 340 140"></svg>
+  </div>
+
+  <!-- Fat timeline -->
+  <div class="timeline-block">
+    <div class="timeline-title">Record History</div>
     <div id="fat-tl"></div>
   </div>
-</div>
 
-<!-- PAGE MUSCLE -->
-<div id="page-muscle" class="page">
-  <div class="sec-head">
-    <h2>增肌管理</h2><span class="badge">目标 72 kg</span>
-  </div>
-  <div class="ring-card">
-    <div class="ring-wrap">
-      <svg viewBox="0 0 110 110">
-        <circle class="ring-track" cx="55" cy="55" r="45"/>
-        <circle id="wt-ring" class="ring-fill" cx="55" cy="55" r="45"
-          stroke="url(#wtGrad)" stroke-dasharray="283" stroke-dashoffset="283"/>
-      </svg>
-      <div class="ring-center">
-        <div class="ring-val" id="wt-ring-val" style="color:var(--purple2)">—</div>
-        <div class="ring-unit">kg</div>
-      </div>
-    </div>
-    <div class="ring-info">
-      <div class="ring-title">Weight</div>
-      <div class="ring-row">
-        <div class="ring-dot" style="background:var(--purple2)"></div>
-        <div class="ring-rlabel">当前</div>
-        <div class="ring-rval" id="wt-cur" style="color:var(--purple2)">—</div>
-      </div>
-      <div class="ring-row">
-        <div class="ring-dot" style="background:var(--green)"></div>
-        <div class="ring-rlabel">目标</div>
-        <div class="ring-rval" style="color:var(--green)">72 kg</div>
-      </div>
-      <div class="ring-row">
-        <div class="ring-dot" style="background:var(--amber)"></div>
-        <div class="ring-rlabel">还需增</div>
-        <div class="ring-rval" id="wt-diff" style="color:var(--amber)">—</div>
-      </div>
+  <div class="divider"></div>
+
+  <!-- Weight Hero -->
+  <div class="hero-metric">
+    <div class="hero-eyebrow">Current Weight</div>
+    <div class="hero-number green" id="body-wt-hero">—<span class="unit">kg</span></div>
+    <div class="hero-caption" id="body-wt-caption">
+      Target: <strong>72 kg</strong> — Keep building.
     </div>
   </div>
-  <div class="hint-card">
-    <span class="hint-icon">🤖</span>
-    <div class="hint-txt">发体重秤<strong>照片</strong>给我 → 我自动识别数字更新记录</div>
-  </div>
-  <div class="prog-strip">
-    <div class="prog-head">
-      <span class="lbl">增肌进度</span>
-      <span class="pct" id="wt-pct" style="color:var(--green)">—</span>
+
+  <!-- Weight Progress -->
+  <div class="progress-block">
+    <div class="progress-header">
+      <div class="progress-label">Building Mass</div>
+      <div class="progress-pct" id="wt-pct-num">—</div>
     </div>
-    <div class="prog-bg"><div class="prog-fg wt" id="wt-bar" style="width:0%"></div></div>
+    <div class="progress-track">
+      <div class="progress-fill" id="wt-fill" style="width:0%"></div>
+    </div>
+    <div class="progress-endpoints">
+      <div class="progress-ep">Start <span id="wt-start-ep">—</span></div>
+      <div class="progress-ep">Goal <span>72 kg</span></div>
+    </div>
   </div>
-  <div class="stat-row">
-    <div class="stat-box"><div class="stat-lbl">最高</div><div class="stat-val" id="w-max" style="color:var(--orange)">—</div></div>
-    <div class="stat-box"><div class="stat-lbl">最低</div><div class="stat-val" id="w-min" style="color:var(--green)">—</div></div>
-    <div class="stat-box"><div class="stat-lbl">平均</div><div class="stat-val" id="w-avg" style="color:var(--purple2)">—</div></div>
+
+  <!-- KPIs -->
+  <div class="kpi-row">
+    <div class="kpi-cell"><div class="kpi-val" id="w-max">—</div><div class="kpi-lbl">Peak</div></div>
+    <div class="kpi-cell"><div class="kpi-val" id="w-min">—</div><div class="kpi-lbl">Low</div></div>
+    <div class="kpi-cell"><div class="kpi-val" id="w-avg">—</div><div class="kpi-lbl">Average</div></div>
   </div>
-  <div class="chart-card">
-    <div class="chart-title">📈 体重趋势</div>
-    <svg id="wt-svg" class="chart-svg" viewBox="0 0 360 160"></svg>
+
+  <!-- Weight chart -->
+  <div class="chart-block">
+    <div class="chart-header">
+      <div class="chart-title">Weight Trend</div>
+      <div class="chart-current" id="wt-chart-current">—</div>
+    </div>
+    <svg id="wt-svg" class="chart-svg" viewBox="0 0 340 140"></svg>
   </div>
-  <div class="tl-card">
-    <div class="tl-title">📅 体重记录</div>
+
+  <!-- Weight timeline -->
+  <div class="timeline-block">
+    <div class="timeline-title">Weight History</div>
     <div id="wt-tl"></div>
   </div>
+
 </div>
 
-<!-- PAGE GALLERY -->
+<!-- ======================================================
+     PAGE: TRAIN
+     ====================================================== -->
+<div id="page-train" class="page">
+
+  <div class="train-hero">
+    <div class="train-hero-label">Pull-Up Program</div>
+    <div class="train-hero-title">BUILD<br>YOUR<br>STRENGTH</div>
+    <div class="train-hero-sub">Every rep counts. <strong>This week's goal: 5×10.</strong> Stay consistent and your body will follow.</div>
+  </div>
+
+  <div class="section-label">Programs</div>
+
+  <div class="program-card">
+    <div class="program-icon">🏋️</div>
+    <div class="program-info">
+      <div class="program-name">Pull-Up Mastery</div>
+      <div class="program-meta">8 Weeks · Progressive Overload</div>
+    </div>
+    <div class="program-action"><div class="program-action-icon"></div></div>
+  </div>
+
+  <div class="program-card" style="opacity:0.5">
+    <div class="program-icon">🔥</div>
+    <div class="program-info">
+      <div class="program-name">HIIT Burn</div>
+      <div class="program-meta">Coming Soon</div>
+    </div>
+    <div class="program-action" style="background:var(--gray4)"><div class="program-action-icon" style="border-color:var(--gray2)"></div></div>
+  </div>
+
+  <div class="section-label">This Week</div>
+
+  <div class="pullup-card">
+    <div class="pullup-header">
+      <div class="pullup-title">Weekly Log</div>
+      <div class="pullup-best" id="pullup-best">Best: — reps</div>
+    </div>
+    <div class="pullup-grid" id="pullup-grid"></div>
+  </div>
+
+  <!-- Recovery score -->
+  <div class="section-label">Recovery</div>
+
+  <div class="recover-card">
+    <div class="recover-top">
+      <div class="recover-label">Recovery Score</div>
+      <div class="recover-score" id="recover-score">87</div>
+    </div>
+    <div class="recover-bar-track">
+      <div class="recover-bar-fill" id="recover-bar"
+        style="width:87%; background: linear-gradient(90deg, #00E676, #00BFA5)"></div>
+    </div>
+    <div class="recover-hint" id="recover-hint">
+      <strong>Train Hard today.</strong> Your recovery is excellent — push your limits and log a new PR.
+    </div>
+  </div>
+
+  <div class="section-label">Muscle Growth</div>
+  <div class="insight-card" style="margin:0 16px 16px">
+    <div class="insight-eyebrow">Current Phase</div>
+    <div class="insight-stat">
+      <div class="insight-big">Lean<span style="font-size:28px;color:var(--gray2);font-weight:600"> Bulk</span></div>
+    </div>
+    <div class="insight-sub">
+      Target weight: <strong>72 kg</strong>. Currently at <strong id="train-wt-cur">—</strong>. Focus on progressive overload and protein intake. Aim for <strong>+0.5 kg/month</strong>.
+    </div>
+  </div>
+
+</div>
+
+<!-- ======================================================
+     PAGE: GALLERY
+     ====================================================== -->
 <div id="page-gallery" class="page">
-  <div class="sec-head">
-    <h2>健身相册</h2><span class="badge" id="g-badge">0 张</span>
+
+  <div class="gallery-stats">
+    <div class="gstat-cell">
+      <div class="gstat-num" id="g-total">0</div>
+      <div class="gstat-lbl">Photos</div>
+    </div>
+    <div class="gstat-cell">
+      <div class="gstat-num" id="g-month">0</div>
+      <div class="gstat-lbl">This Month</div>
+    </div>
+    <div class="gstat-cell">
+      <div class="gstat-num" id="g-days">0</div>
+      <div class="gstat-lbl">Days Logged</div>
+    </div>
   </div>
-  <div class="g-stats">
-    <div class="g-stat"><div class="g-stat-num" id="g-total">0</div><div class="g-stat-lbl">总照片</div></div>
-    <div class="g-stat"><div class="g-stat-num" id="g-month">0</div><div class="g-stat-lbl">本月</div></div>
-    <div class="g-stat"><div class="g-stat-num" id="g-days">0</div><div class="g-stat-lbl">记录天</div></div>
+
+  <div class="gallery-prompt">
+    <div class="gallery-prompt-icon">📷</div>
+    <div class="gallery-prompt-text">Send me a <strong>workout photo</strong> → I'll auto-archive it with date and caption.</div>
   </div>
-  <div class="hint-card">
-    <span class="hint-icon">📷</span>
-    <div class="hint-txt">发<strong>健身照片</strong>给我 → 自动归档，配上日期和说明</div>
-  </div>
-  <div id="g-grid" class="photo-grid"></div>
+
+  <div id="g-grid" class="photo-grid" style="display:none"></div>
   <div id="g-empty" class="gallery-empty">
-    <span class="gallery-empty-icon">🖼️</span>
-    <div class="gallery-empty-title">相册还是空的</div>
-    <div class="gallery-empty-sub">发健身照片给我<br>记录每一个进步时刻 💪</div>
+    <div class="gallery-empty-icon">🖼️</div>
+    <div class="gallery-empty-title">Your Story Begins Here</div>
+    <div class="gallery-empty-sub">Every photo is proof of work done.<br>Start documenting your transformation.</div>
+  </div>
+
+</div>
+
+<!-- ======================================================
+     BOTTOM TAB BAR
+     ====================================================== -->
+<div class="tab-bar">
+  <!-- TODAY -->
+  <div class="tab active" onclick="SCULPT.switchTab('today')">
+    <div class="tab-icon-wrap">
+      <svg class="tab-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+    </div>
+    <div class="tab-label">Today</div>
+  </div>
+  <!-- BODY -->
+  <div class="tab" onclick="SCULPT.switchTab('body')">
+    <div class="tab-icon-wrap">
+      <svg class="tab-icon" viewBox="0 0 24 24"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>
+    </div>
+    <div class="tab-label">Body</div>
+  </div>
+  <!-- TRAIN -->
+  <div class="tab" onclick="SCULPT.switchTab('train')">
+    <div class="tab-icon-wrap">
+      <svg class="tab-icon" viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29l-1.43-1.43z"/></svg>
+    </div>
+    <div class="tab-label">Train</div>
+  </div>
+  <!-- GALLERY -->
+  <div class="tab" onclick="SCULPT.switchTab('gallery')">
+    <div class="tab-icon-wrap">
+      <svg class="tab-icon" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+    </div>
+    <div class="tab-label">Gallery</div>
   </div>
 </div>
 
 <script>
 window.SCULPT = (function() {
+
+  /* ---- DATA ---- */
   const D = {
     startDate: '2026-06-16',
-    fat: { start:16.0, target:12.0, records:[{date:'2025-06-01',value:16.0}] },
-    weight: { target:72, start:null, records:[] },
+    fat: {
+      start: 16.0, target: 12.0,
+      records: [{ date: '2025-06-01', value: 16.0 }]
+    },
+    weight: {
+      target: 72, start: 66.2,
+      records: [
+        { date: '2026-06-10', value: 66.2 },
+        { date: '2026-06-15', value: 66.4 }
+      ]
+    },
+    pullups: [
+      // { date:'2026-06-16', reps:8 }
+    ],
     photos: []
   };
 
+  /* ---- HELPERS ---- */
   const $ = id => document.getElementById(id);
-  const fmt1 = v => (v===null||v===undefined) ? '—' : (+v).toFixed(1);
-  const fmtInt = v => (v===null||v===undefined) ? '—' : Math.round(v)+'';
+  const fmt1 = v => (v == null) ? '—' : (+v).toFixed(1);
+  const fmt0 = v => (v == null) ? '—' : Math.round(v)+'';
 
-  function setRing(id, pct) {
-    const el = $(id); if(!el) return;
-    const offset = 283 - Math.min(100,Math.max(0,pct))/100*283;
+  function setRing(id, pct, circumference) {
+    const c = circumference || 182;
+    const el = $(id); if (!el) return;
+    const offset = c - Math.min(100, Math.max(0, pct)) / 100 * c;
     el.style.strokeDashoffset = offset;
   }
 
-  function drawLineChart(svgId, records, target, strokeColor, yMin, yMax, unit) {
-    const svg = $(svgId); if(!svg) return;
-    const W=360, H=160, pl=38, pr=28, pt=14, pb=28;
-    const cW=W-pl-pr, cH=H-pt-pb;
-    const ySpan = yMax-yMin || 1;
-    const sorted = [...records].sort((a,b)=>a.date.localeCompare(b.date));
+  /* ---- CHART ---- */
+  function drawChart(svgId, records, target, stroke, yMin, yMax, unit, viewW, viewH) {
+    const svg = $(svgId); if (!svg) return;
+    const W = viewW || 340, H = viewH || 140;
+    const pl = 36, pr = 20, pt = 12, pb = 24;
+    const cW = W - pl - pr, cH = H - pt - pb;
+    const ySpan = (yMax - yMin) || 1;
+    const sorted = [...records].sort((a,b) => a.date.localeCompare(b.date));
     const n = sorted.length;
 
     let html = '';
-    // Grid + Y labels
-    [0,0.25,0.5,0.75,1].forEach(f => {
-      const y = pt + cH*(1-f);
-      const v = yMin + ySpan*f;
-      html += `<line x1="${pl}" y1="${y.toFixed(1)}" x2="${W-pr}" y2="${y.toFixed(1)}" stroke="#2a2a42" stroke-width="0.5"/>`;
-      html += `<text x="${pl-4}" y="${(y+3).toFixed(1)}" font-size="9" fill="#5a5a7a" text-anchor="end">${(+v).toFixed(0)}${unit}</text>`;
+
+    // Grid lines
+    [0, 0.5, 1].forEach(f => {
+      const y = pt + cH * (1 - f);
+      const v = yMin + ySpan * f;
+      html += `<line x1="${pl}" y1="${y.toFixed(1)}" x2="${W-pr}" y2="${y.toFixed(1)}" stroke="#222" stroke-width="0.8"/>`;
+      html += `<text x="${pl-4}" y="${(y+3.5).toFixed(1)}" font-size="9" fill="#555" text-anchor="end">${(+v).toFixed(0)}${unit}</text>`;
     });
 
-    // Target dashed line
-    const ty = pt + cH - ((target-yMin)/ySpan*cH);
-    if(ty>=pt && ty<=pt+cH) {
-      html += `<line x1="${pl}" y1="${ty.toFixed(1)}" x2="${W-pr}" y2="${ty.toFixed(1)}" stroke="#22c97a" stroke-width="1.5" stroke-dasharray="5,4"/>`;
-      html += `<text x="${W-pr+2}" y="${(ty+4).toFixed(1)}" font-size="9" fill="#22c97a">目标</text>`;
+    // Target line
+    const ty = pt + cH - ((target - yMin) / ySpan * cH);
+    if (ty >= pt && ty <= pt + cH) {
+      html += `<line x1="${pl}" y1="${ty.toFixed(1)}" x2="${W-pr}" y2="${ty.toFixed(1)}" stroke="#00E676" stroke-width="1" stroke-dasharray="4,4"/>`;
+      html += `<text x="${W-pr+3}" y="${(ty+3.5).toFixed(1)}" font-size="9" fill="#00E676">goal</text>`;
     }
 
-    if(n === 0) {
-      html += `<text x="${W/2}" y="${H/2}" font-size="12" fill="#5a5a7a" text-anchor="middle">等待数据更新…</text>`;
+    if (n === 0) {
+      html += `<text x="${W/2}" y="${H/2}" font-size="12" fill="#444" text-anchor="middle">No data yet — start logging</text>`;
       svg.innerHTML = html; return;
     }
 
-    const cx = i => n<=1 ? pl+cW/2 : pl + i*cW/(n-1);
-    const cy = v => pt + cH - ((v-yMin)/ySpan*cH);
+    const cx = i => n <= 1 ? pl + cW / 2 : pl + i * cW / (n - 1);
+    const cy = v => pt + cH - ((v - yMin) / ySpan * cH);
 
-    // Area
-    if(n>1){
-      let path = `M${cx(0).toFixed(1)},${cy(sorted[0].value).toFixed(1)}`;
-      for(let i=1;i<n;i++) path+=` L${cx(i).toFixed(1)},${cy(sorted[i].value).toFixed(1)}`;
-      path+=` L${cx(n-1).toFixed(1)},${(pt+cH).toFixed(1)} L${cx(0).toFixed(1)},${(pt+cH).toFixed(1)} Z`;
-      html += `<path d="${path}" fill="${strokeColor}" opacity="0.10"/>`;
+    // Area fill
+    if (n > 1) {
+      let p = `M${cx(0).toFixed(1)},${cy(sorted[0].value).toFixed(1)}`;
+      for (let i = 1; i < n; i++) p += ` L${cx(i).toFixed(1)},${cy(sorted[i].value).toFixed(1)}`;
+      p += ` L${cx(n-1).toFixed(1)},${(pt+cH).toFixed(1)} L${cx(0).toFixed(1)},${(pt+cH).toFixed(1)} Z`;
+      html += `<defs><linearGradient id="areaGrad${svgId}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="${stroke}" stop-opacity="0.2"/>
+        <stop offset="100%" stop-color="${stroke}" stop-opacity="0"/>
+      </linearGradient></defs>`;
+      html += `<path d="${p}" fill="url(#areaGrad${svgId})"/>`;
     }
 
     // Line
-    if(n>1){
+    if (n > 1) {
+      // Smooth cubic bezier
       let d = `M${cx(0).toFixed(1)},${cy(sorted[0].value).toFixed(1)}`;
-      for(let i=1;i<n;i++) d+=` L${cx(i).toFixed(1)},${cy(sorted[i].value).toFixed(1)}`;
-      html += `<path d="${d}" fill="none" stroke="${strokeColor}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+      for (let i = 1; i < n; i++) {
+        const x0 = cx(i-1), y0 = cy(sorted[i-1].value);
+        const x1 = cx(i),   y1 = cy(sorted[i].value);
+        const cpx = (x0 + x1) / 2;
+        d += ` C${cpx.toFixed(1)},${y0.toFixed(1)} ${cpx.toFixed(1)},${y1.toFixed(1)} ${x1.toFixed(1)},${y1.toFixed(1)}`;
+      }
+      html += `<path d="${d}" fill="none" stroke="${stroke}" stroke-width="2.5" stroke-linecap="round"/>`;
     }
 
-    // Dots + X labels
-    sorted.forEach((r,i) => {
-      const x=cx(i), y=cy(r.value);
-      html += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" fill="${strokeColor}" stroke="var(--bg)" stroke-width="2"/>`;
-      const lbl = r.date.slice(5); // MM-DD
-      if(n<=8 || i===0 || i===n-1 || i%Math.ceil(n/6)===0) {
-        html += `<text x="${x.toFixed(1)}" y="${(pt+cH+12).toFixed(1)}" font-size="9" fill="#5a5a7a" text-anchor="middle">${lbl}</text>`;
+    // Dots
+    sorted.forEach((r, i) => {
+      const x = cx(i), y = cy(r.value);
+      html += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" fill="${stroke}" stroke="#080808" stroke-width="2.5"/>`;
+      if (i === n - 1) {
+        // Last value label
+        html += `<text x="${x.toFixed(1)}" y="${(y-9).toFixed(1)}" font-size="10" fill="${stroke}" text-anchor="middle" font-weight="700">${fmt1(r.value)}${unit}</text>`;
       }
-      // Value tooltip on dot
-      html += `<text x="${x.toFixed(1)}" y="${(y-8).toFixed(1)}" font-size="9" fill="${strokeColor}" text-anchor="middle" font-weight="600">${fmt1(r.value)}${unit}</text>`;
+      // x-axis label
+      const lbl = r.date.slice(5);
+      if (n <= 6 || i === 0 || i === n - 1 || i % Math.ceil(n/5) === 0) {
+        html += `<text x="${x.toFixed(1)}" y="${(pt+cH+13).toFixed(1)}" font-size="9" fill="#444" text-anchor="middle">${lbl}</text>`;
+      }
     });
 
     svg.innerHTML = html;
   }
 
+  /* ---- RENDER FAT ---- */
   function renderFat() {
     const recs = D.fat.records;
-    const latest = recs.length ? recs[recs.length-1].value : D.fat.start;
-    const target = D.fat.target;
-    const start = D.fat.start;
-    const diff = latest - target;
-    const pct = Math.max(0, Math.min(100, (start-latest)/(start-target)*100));
+    const sorted = [...recs].sort((a,b) => a.date.localeCompare(b.date));
+    const latest = sorted.length ? sorted[sorted.length-1].value : D.fat.start;
+    const target = D.fat.target, start = D.fat.start;
+    const diff = +(latest - target).toFixed(1);
+    const pct = Math.max(0, Math.min(100, (start - latest) / (start - target) * 100));
 
-    // Ring — progress toward goal, capped 0-100
-    setRing('fat-ring', pct);
-    $('fat-ring-val').textContent = fmt1(latest)+'%';
-    $('fat-cur').textContent = fmt1(latest)+'%';
-    $('fat-diff').textContent = diff > 0 ? fmt1(diff)+'%' : '✓ 达标！';
-    $('fat-pct').textContent = Math.round(pct)+'%';
-    $('fat-bar').style.width = pct+'%';
+    // Body page
+    $('body-fat-hero').innerHTML = `${fmt1(latest)}<span class="unit">%</span>`;
+    $('body-fat-caption').innerHTML = diff > 0
+      ? `Target: <strong>12.0%</strong> — Still <strong>${fmt1(diff)}%</strong> to go. Stay consistent.`
+      : `<strong>🎯 Goal reached!</strong> You've hit 12% body fat. Incredible work.`;
+    $('fat-pct-num').textContent = Math.round(pct) + '%';
+    $('fat-fill').style.width = pct + '%';
+    $('fat-start-ep').textContent = fmt1(start) + '%';
+    $('fat-chart-current').textContent = fmt1(latest) + '%';
 
-    // Color ring val by proximity to target
-    const c = diff <= 0 ? 'var(--green)' : diff <= 1 ? 'var(--amber)' : 'var(--orange)';
-    $('fat-ring-val').style.color = c;
-    $('fat-cur').style.color = c;
+    // Today rings
+    setRing('ring-fat', pct);
+    $('ring-fat-txt').textContent = Math.round(pct) + '%';
+    $('today-fat-val').innerHTML = `${fmt1(latest)}<span style="font-size:16px;font-weight:600;color:var(--gray2)">%</span>`;
+    $('insight-pct').textContent = Math.round(pct);
+    $('insight-caption').innerHTML = `You started at <strong>${fmt1(start)}%</strong> — target is <strong>${fmt1(target)}%</strong>. ${diff > 0 ? `Keep pushing, <strong>${fmt1(diff)}% to go</strong>.` : '<strong>Goal achieved!</strong>'}`;
 
     // Chart
-    const vals = recs.map(r=>r.value);
-    const allVals = [start, target, ...vals];
-    const yMin = Math.floor(Math.min(...allVals)) - 1;
-    const yMax = Math.ceil(Math.max(...allVals)) + 1;
-    drawLineChart('fat-svg', recs, target, '#ff7a2f', yMin, yMax, '%');
+    const vals = recs.map(r => r.value);
+    const allV = [start, target, ...vals];
+    const yMin = Math.floor(Math.min(...allV)) - 0.5;
+    const yMax = Math.ceil(Math.max(...allV)) + 0.5;
+    drawChart('fat-svg', recs, target, '#FF9F0A', yMin, yMax, '%');
 
     // Timeline
     const tl = $('fat-tl');
-    const sorted = [...recs].sort((a,b)=>b.date.localeCompare(a.date));
-    tl.innerHTML = sorted.map(r => {
+    const rev = [...sorted].reverse();
+    tl.innerHTML = rev.map((r, i) => {
       const isStart = r.date === '2025-06-01';
       return `<div class="tl-item">
-        <div class="tl-dot" style="background:rgba(255,122,47,.2);color:var(--orange);border:1px solid rgba(255,122,47,.3)">${isStart?'S':'↓'}</div>
-        <div class="tl-content">
+        <div class="tl-node ${isStart ? '' : 'green'}">${isStart ? 'S' : '↓'}</div>
+        <div class="tl-body">
           <div class="tl-date">${r.date}</div>
-          <div class="tl-text">${isStart?'起始体脂率':'体脂率更新'} <span class="tl-val" style="color:var(--orange)">${fmt1(r.value)}%</span></div>
+          <div class="tl-desc">${isStart ? 'Where It Started' : 'Body Fat Update'} — <strong>${fmt1(r.value)}%</strong></div>
         </div>
       </div>`;
     }).join('');
   }
 
+  /* ---- RENDER WEIGHT ---- */
   function renderWeight() {
     const recs = D.weight.records;
     const target = D.weight.target;
-    const n = recs.length;
-    const sorted = [...recs].sort((a,b)=>a.date.localeCompare(b.date));
+    const sorted = [...recs].sort((a,b) => a.date.localeCompare(b.date));
+    const n = sorted.length;
     const latest = n ? sorted[n-1].value : null;
 
-    $('wt-ring-val').textContent = latest ? fmt1(latest) : '—';
-    $('wt-cur').textContent = latest ? fmt1(latest)+' kg' : '—';
+    if (latest !== null) {
+      const diff = +(target - latest).toFixed(1);
+      const pct = Math.min(100, Math.max(0, latest / target * 100));
 
-    if(latest !== null) {
-      const diff = target - latest;
-      $('wt-diff').textContent = diff > 0 ? '+'+fmt1(diff)+' kg' : '✓ 达标！';
-      const pct = Math.min(100, Math.max(0, latest/target*100));
-      setRing('wt-ring', pct);
-      $('wt-pct').textContent = Math.round(pct)+'%';
-      $('wt-bar').style.width = pct+'%';
+      $('body-wt-hero').innerHTML = `${fmt1(latest)}<span class="unit">kg</span>`;
+      $('body-wt-caption').innerHTML = diff > 0
+        ? `Target: <strong>72 kg</strong> — <strong>+${fmt1(diff)} kg</strong> more to build.`
+        : `<strong>🎯 Goal reached!</strong> You've built to 72 kg. Respect.`;
+      $('wt-pct-num').textContent = Math.round(pct) + '%';
+      $('wt-fill').style.width = pct + '%';
+      $('wt-start-ep').textContent = fmt1(D.weight.start) + ' kg';
+      $('wt-chart-current').textContent = fmt1(latest) + ' kg';
 
-      const vals = sorted.map(r=>r.value);
-      $('w-max').textContent = fmt1(Math.max(...vals))+' kg';
-      $('w-min').textContent = fmt1(Math.min(...vals))+' kg';
-      $('w-avg').textContent = fmt1(vals.reduce((a,b)=>a+b,0)/vals.length)+' kg';
+      // Today
+      $('today-wt-val').innerHTML = `${fmt1(latest)}<span style="font-size:16px;font-weight:600;color:var(--gray2)">kg</span>`;
+      $('train-wt-cur').textContent = fmt1(latest) + ' kg';
 
-      const allVals = [target, ...vals];
-      const yMin = Math.floor(Math.min(...allVals)) - 2;
-      const yMax = Math.ceil(Math.max(...allVals)) + 2;
-      drawLineChart('wt-svg', recs, target, '#7c5cfc', yMin, yMax, 'kg');
+      // Ring
+      const musclePct = Math.max(0, Math.min(100, (latest - D.weight.start) / (target - D.weight.start) * 100));
+      setRing('ring-muscle', musclePct);
+      $('ring-muscle-txt').textContent = Math.round(musclePct) + '%';
 
+      // KPIs
+      const vals = sorted.map(r => r.value);
+      $('w-max').textContent = fmt1(Math.max(...vals)) + 'kg';
+      $('w-min').textContent = fmt1(Math.min(...vals)) + 'kg';
+      $('w-avg').textContent = fmt1(vals.reduce((a,b) => a+b, 0) / vals.length) + 'kg';
+
+      // Chart
+      const allV = [target, ...vals];
+      const yMin = Math.floor(Math.min(...allV)) - 1;
+      const yMax = Math.ceil(Math.max(...allV)) + 1;
+      drawChart('wt-svg', recs, target, '#00E676', yMin, yMax, 'kg');
+
+      // Timeline
       const tl = $('wt-tl');
       const rev = [...sorted].reverse();
       tl.innerHTML = rev.map(r => `<div class="tl-item">
-        <div class="tl-dot" style="background:rgba(124,92,252,.2);color:var(--purple2);border:1px solid rgba(124,92,252,.3)">⬆</div>
-        <div class="tl-content">
+        <div class="tl-node green">↑</div>
+        <div class="tl-body">
           <div class="tl-date">${r.date}</div>
-          <div class="tl-text">体重记录 <span class="tl-val" style="color:var(--purple2)">${fmt1(r.value)} kg</span></div>
+          <div class="tl-desc">Weight Logged — <strong>${fmt1(r.value)} kg</strong></div>
         </div>
       </div>`).join('');
     } else {
-      $('wt-diff').textContent = '—';
-      $('w-max').textContent = $('w-min').textContent = $('w-avg').textContent = '—';
-      $('wt-svg').innerHTML = `<text x="180" y="80" font-size="12" fill="#5a5a7a" text-anchor="middle">发体重照片给我，我来记录 📷</text>`;
-      $('wt-tl').innerHTML = `<div class="tl-item">
-        <div class="tl-dot" style="background:rgba(90,90,122,.2);color:var(--text3);border:1px solid var(--border)">—</div>
-        <div class="tl-content"><div class="tl-date">—</div><div class="tl-text" style="color:var(--text3)">等待第一条记录</div></div>
-      </div>`;
+      $('body-wt-hero').innerHTML = `—<span class="unit">kg</span>`;
+      $('wt-svg').innerHTML = `<text x="170" y="70" font-size="12" fill="#444" text-anchor="middle">Send me a scale photo to start tracking</text>`;
+      $('wt-tl').innerHTML = `<div class="tl-item"><div class="tl-node">—</div><div class="tl-body"><div class="tl-desc" style="color:var(--gray3)">Your story begins here</div></div></div>`;
     }
   }
 
+  /* ---- RENDER GALLERY ---- */
   function renderGallery() {
     const photos = D.photos;
     const n = photos.length;
-    $('g-badge').textContent = n+' 张';
     $('g-total').textContent = n;
-    const now = new Date();
-    const thisMonth = now.toISOString().slice(0,7);
-    $('g-month').textContent = photos.filter(p=>p.date.startsWith(thisMonth)).length;
-    $('g-days').textContent = new Set(photos.map(p=>p.date)).size;
+    const now = new Date(), thisMonth = now.toISOString().slice(0,7);
+    $('g-month').textContent = photos.filter(p => p.date.startsWith(thisMonth)).length;
+    $('g-days').textContent = new Set(photos.map(p => p.date)).size;
 
     const grid = $('g-grid'), empty = $('g-empty');
-    if(n === 0) { grid.style.display='none'; empty.style.display='block'; return; }
+    if (n === 0) { grid.style.display='none'; empty.style.display='flex'; return; }
     grid.style.display='block'; empty.style.display='none';
-    const sorted = [...photos].sort((a,b)=>b.date.localeCompare(a.date));
+    const sorted = [...photos].sort((a,b) => b.date.localeCompare(a.date));
     grid.innerHTML = sorted.map(p => `<div class="photo-item">
       <img src="${p.src}" alt="Workout ${p.date}" loading="lazy">
       <div class="photo-overlay">
@@ -489,58 +1463,123 @@ window.SCULPT = (function() {
     </div>`).join('');
   }
 
+  /* ---- RENDER PULLUPS ---- */
+  function renderPullups() {
+    const grid = $('pullup-grid'); if (!grid) return;
+    const days = [];
+    const today = new Date();
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(today); d.setDate(d.getDate() - i);
+      const ds = d.toISOString().slice(0,10);
+      const rec = D.pullups.find(p => p.date === ds);
+      const isToday = i === 0;
+      days.push({ ds, reps: rec ? rec.reps : null, isToday });
+    }
+
+    const best = D.pullups.length ? Math.max(...D.pullups.map(p => p.reps)) : null;
+    $('pullup-best').textContent = best ? `Best: ${best} reps` : 'Best: — reps';
+
+    grid.innerHTML = days.map(d => {
+      let cls = 'pullup-day';
+      if (d.isToday) cls += ' today';
+      else if (d.reps !== null) cls += ' done';
+      const label = d.reps !== null ? d.reps : d.ds.slice(8);
+      return `<div class="${cls}">${label}</div>`;
+    }).join('');
+  }
+
+  /* ---- RENDER TODAY ---- */
+  function renderToday() {
+    // Date string
+    const now = new Date();
+    const days = ['SUNDAY','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY'];
+    const months = ['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
+    $('today-date-str').textContent = `${days[now.getDay()]} · ${months[now.getMonth()]} ${now.getDate()}`;
+
+    // Day streak ring
+    const d1 = new Date(D.startDate), d2 = new Date();
+    const days_in = Math.max(1, Math.round((d2-d1)/(1000*60*60*24))+1);
+    $('dayCount').textContent = days_in;
+    $('today-days-val').textContent = days_in;
+    $('ring-streak-txt').textContent = days_in;
+    const streakPct = Math.min(100, (days_in / 100) * 100);
+    setRing('ring-streak', streakPct);
+
+    // Coach message — dynamic
+    const fatRecs = [...D.fat.records].sort((a,b)=>a.date.localeCompare(b.date));
+    const latestFat = fatRecs.length ? fatRecs[fatRecs.length-1].value : D.fat.start;
+    const fatPct = Math.round(Math.max(0,Math.min(100,(D.fat.start-latestFat)/(D.fat.start-D.fat.target)*100)));
+
+    const wtRecs = [...D.weight.records].sort((a,b)=>a.date.localeCompare(b.date));
+    const latestWt = wtRecs.length ? wtRecs[wtRecs.length-1].value : null;
+
+    let msg = '';
+    if (fatPct === 0) {
+      msg = `Day ${days_in}. The hardest part is showing up — and you're here. Stay consistent, track everything, and the results will follow. Today: log your weight and do your pull-ups.`;
+    } else if (fatPct < 25) {
+      msg = `You're ${fatPct}% toward your fat loss goal. The foundation is set. Keep the deficit, push the training, and the body will follow.`;
+    } else if (fatPct < 60) {
+      msg = `${fatPct}% to your fat loss goal. You're in the thick of it — this is where champions are made. Don't stop now.`;
+    } else {
+      msg = `${fatPct}% done. You're in the final stretch. The goal is within reach — finish what you started.`;
+    }
+    $('coach-msg').textContent = msg;
+  }
+
+  /* ---- FULL RENDER ---- */
   function render() {
+    renderToday();
     renderFat();
     renderWeight();
     renderGallery();
-    // Day counter
-    const d1 = new Date(D.startDate), d2 = new Date();
-    const days = Math.max(1, Math.round((d2-d1)/(1000*60*60*24))+1);
-    $('dayCount').textContent = days;
+    renderPullups();
   }
 
+  /* ---- SWITCH TAB ---- */
   function switchTab(tab) {
-    const pages = { fat:'page-fat', muscle:'page-muscle', gallery:'page-gallery' };
-    const order = ['fat','muscle','gallery'];
-    Object.values(pages).forEach(id => { const el=$(id); if(el) el.classList.remove('active'); });
+    const map = { today:'page-today', body:'page-body', train:'page-train', gallery:'page-gallery' };
+    const order = ['today','body','train','gallery'];
+    Object.values(map).forEach(id => { const el=$(id); if(el) el.classList.remove('active'); });
     document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
-    const pg = $(pages[tab]); if(pg) pg.classList.add('active');
+    const pg = $(map[tab]); if(pg) pg.classList.add('active');
     const idx = order.indexOf(tab);
     const tabs = document.querySelectorAll('.tab');
     if(tabs[idx]) tabs[idx].classList.add('active');
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  /* ---- PUBLIC API ---- */
   function updateBodyFat(date, value) {
     D.fat.records = D.fat.records.filter(r => r.date !== date);
     D.fat.records.push({ date, value: parseFloat(value) });
-    D.fat.records.sort((a,b)=>a.date.localeCompare(b.date));
-    renderFat();
+    D.fat.records.sort((a,b) => a.date.localeCompare(b.date));
+    render();
   }
 
   function updateWeight(date, value) {
     D.weight.records = D.weight.records.filter(r => r.date !== date);
     D.weight.records.push({ date, value: parseFloat(value) });
-    D.weight.records.sort((a,b)=>a.date.localeCompare(b.date));
-    if(!D.weight.start) D.weight.start = parseFloat(value);
-    renderWeight();
+    D.weight.records.sort((a,b) => a.date.localeCompare(b.date));
+    if (!D.weight.start) D.weight.start = parseFloat(value);
+    render();
+  }
+
+  function logPullups(date, reps) {
+    D.pullups = D.pullups.filter(p => p.date !== date);
+    D.pullups.push({ date, reps: parseInt(reps) });
+    renderPullups();
   }
 
   function addPhoto(src, date, caption) {
-    D.photos.push({ src, date, caption: caption||'' });
+    D.photos.push({ src, date, caption: caption || '' });
     renderGallery();
   }
 
-  // Init
-  // Pre-loaded records
-  D.weight.records = [
-    { date: '2026-06-10', value: 66.2 },
-    { date: '2026-06-15', value: 66.4 }
-  ];
-  D.weight.start = 66.2;
-
+  // Boot
   render();
 
-  return { data:D, switchTab, updateBodyFat, updateWeight, addPhoto, render };
+  return { data: D, switchTab, updateBodyFat, updateWeight, logPullups, addPhoto, render };
 })();
 </script>
 </body>
