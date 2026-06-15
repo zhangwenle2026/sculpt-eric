@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="app-version" content="20260616-0001">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Sculpt Eric</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --primary: #ff6b35;
+  --primary-dark: #e55a2b;
+  --bg: #0d1117;
+  --card: #161b22;
+  --card-border: #21262d;
+  --text: #f0f6fc;
+  --text-dim: #8b949e;
+  --green: #3fb950;
+  --blue: #58a6ff;
+  --purple: #bc8cff;
+  --yellow: #d29922;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding-bottom: 70px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Header */
+.header {
+  padding: 20px 16px 12px;
+  text-align: center;
+  background: linear-gradient(180deg, #161b22 0%, var(--bg) 100%);
+}
+.header h1 {
+  font-size: 24px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary), #ffb347);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+}
+.header .subtitle {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+/* Tabs */
+.tab-bar {
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--card-border);
+  padding: 0 8px;
+}
+.tab-btn {
+  flex: 1;
+  padding: 12px 4px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dim);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tab-btn.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+/* Panels */
+.tab-panel { display: none; padding: 16px; }
+.tab-panel.active { display: block; }
+
+/* Cards */
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+.card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Stats Row */
+.stats-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.stat-box {
+  flex: 1;
+  background: rgba(255,107,53,0.08);
+  border-radius: 10px;
+  padding: 12px 10px;
+  text-align: center;
+}
+.stat-box .label { font-size: 11px; color: var(--text-dim); margin-bottom: 4px; }
+.stat-box .value { font-size: 20px; font-weight: 800; color: var(--primary); }
+.stat-box .unit { font-size: 11px; color: var(--text-dim); }
+.stat-box.green .value { color: var(--green); }
+.stat-box.blue .value { color: var(--blue); }
+.stat-box.purple .value { color: var(--purple); }
+
+/* Chart Container */
+.chart-wrap {
+  width: 100%;
+  height: 200px;
+  position: relative;
+}
+.chart-wrap canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Record List */
+.record-list { margin-top: 12px; }
+.record-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--card-border);
+  font-size: 13px;
+}
+.record-item:last-child { border-bottom: none; }
+.record-date { color: var(--text-dim); }
+.record-value { font-weight: 700; }
+
+/* Photo Grid */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+.photo-item {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  background: var(--card-border);
+}
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photo-date {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 4px 6px;
+  background: rgba(0,0,0,0.7);
+  font-size: 10px;
+  color: #fff;
+  text-align: center;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-dim);
+  font-size: 14px;
+}
+.empty-state .icon { font-size: 40px; margin-bottom: 12px; }
+
+/* Target line annotation */
+.target-badge {
+  display: inline-block;
+  background: rgba(63,185,80,0.15);
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 8px;
+  margin-left: 8px;
+}
+
+/* Bottom nav placeholder */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: var(--card);
+  border-top: 1px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>💪 Sculpt Eric</h1>
+  <div class="subtitle">Body Management · Since Jun 2025</div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab(0)">🔥 体脂管理</button>
+  <button class="tab-btn" onclick="switchTab(1)">💪 增肌管理</button>
+  <button class="tab-btn" onclick="switchTab(2)">📸 健身相册</button>
+</div>
+
+<!-- ==================== TAB 1: 体脂管理 ==================== -->
+<div class="tab-panel active" id="panel-fat">
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="label">起始体脂</div>
+      <div class="value">16<span class="unit">%</span></div>
+    </div>
+    <div class="stat-box green">
+      <div class="label">🎯 目标</div>
+      <div class="value">12<span class="unit">%</span></div>
+    </div>
+    <div class="stat-box blue">
+      <div class="label">最新体脂</div>
+      <div class="value" id="fat-latest">--<span class="unit">%</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📈 体脂率趋势</div>
+    <div class="chart-wrap"><canvas id="chart-fat"></canvas></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📋 记录明细</div>
+    <div class="record-list" id="fat-records">
+      <div class="record-item">
+        <span class="record-date">2025-06</span>
+        <span class="record-value">16.0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TAB 2: 增肌管理 ==================== -->
+<div class="tab-panel" id="panel-muscle">
+  <div class="stats-row">
+    <div class="stat-box purple">
+      <div class="label">🎯 7月目标</div>
+      <div class="value">72<span class="unit">kg</span></div>
+    </div>
+    <div class="stat-box blue">
+      <div class="label">最新体重</div>
+      <div class="value" id="weight-latest">--<span class="unit">kg</span></div>
+    </div>
+    <div class="stat-box">
+      <div class="label">距目标</div>
+      <div class="value" id="weight-gap">--<span class="unit">kg</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📈 体重趋势</div>
+    <div class="chart-wrap"><canvas id="chart-weight"></canvas></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📋 记录明细</div>
+    <div class="record-list" id="weight-records">
+      <div class="empty-state">
+        <div class="icon">⚖️</div>
+        <div>发体重照片给我，自动更新记录</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TAB 3: 健身相册 ==================== -->
+<div class="tab-panel" id="panel-photos">
+  <div class="card">
+    <div class="card-title">📸 健身打卡相册</div>
+    <div class="photo-grid" id="photo-grid">
+      <div class="empty-state" style="grid-column:1/-1">
+        <div class="icon">📷</div>
+        <div>发健身照片给我，自动收录到相册</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-nav">Sculpt Eric v20260616-0001</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<script>
+// ============================================================
+// DATA STORE
+// ============================================================
+var DATA = {
+  fat: [
+    { date: '2025-06', value: 16.0 }
+  ],
+  weight: [],
+  photos: []
+};
+
+// ============================================================
+// TAB SWITCHING
+// ============================================================
+function switchTab(idx) {
+  document.querySelectorAll('.tab-btn').forEach(function(b,i){ b.classList.toggle('active', i===idx); });
+  document.querySelectorAll('.tab-panel').forEach(function(p,i){ p.classList.toggle('active', i===idx); });
+  // Redraw charts when switching to their tab
+  if (idx === 0) renderFatChart();
+  if (idx === 1) renderWeightChart();
+}
+
+// ============================================================
+// FAT CHART
+// ============================================================
+var fatChart = null;
+function renderFatChart() {
+  var ctx = document.getElementById('chart-fat');
+  if (!ctx) return;
+  if (fatChart) fatChart.destroy();
+
+  var labels = DATA.fat.map(function(d){ return d.date; });
+  var values = DATA.fat.map(function(d){ return d.value; });
+
+  fatChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: '体脂率 %',
+        data: values,
+        borderColor: '#ff6b35',
+        backgroundColor: 'rgba(255,107,53,0.1)',
+        borderWidth: 2.5,
+        pointBackgroundColor: '#ff6b35',
+        pointRadius: 4,
+        tension: 0.3,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        annotation: null
+      },
+      scales: {
+        y: {
+          min: 10,
+          max: 20,
+          grid: { color: 'rgba(255,255,255,0.05)' },
+          ticks: { color: '#8b949e', font: { size: 11 } }
+        },
+        x: {
+          grid: { display: false },
+          ticks: { color: '#8b949e', font: { size: 10 } }
+        }
+      }
+    }
+  });
+
+  // Update latest display
+  if (DATA.fat.length > 0) {
+    var latest = DATA.fat[DATA.fat.length - 1];
+    document.getElementById('fat-latest').innerHTML = latest.value + '<span class="unit">%</span>';
+  }
+}
+
+// ============================================================
+// WEIGHT CHART
+// ============================================================
+var weightChart = null;
+function renderWeightChart() {
+  var ctx = document.getElementById('chart-weight');
+  if (!ctx) return;
+  if (weightChart) weightChart.destroy();
+
+  if (DATA.weight.length === 0) {
+    // Empty state
+    weightChart = new Chart(ctx, {
+      type: 'line',
+      data: { labels: ['目标'], datasets: [{ data: [72], borderColor: '#3fb950', borderDash: [5,5], pointRadius: 6, pointBackgroundColor: '#3fb950' }] },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { min: 60, max: 80, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#8b949e' } }, x: { grid: { display: false }, ticks: { color: '#8b949e' } } } }
+    });
+    return;
+  }
+
+  var labels = DATA.weight.map(function(d){ return d.date; });
+  var values = DATA.weight.map(function(d){ return d.value; });
+  var targetLine = DATA.weight.map(function(){ return 72; });
+
+  weightChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: '体重 kg',
+          data: values,
+          borderColor: '#58a6ff',
+          backgroundColor: 'rgba(88,166,255,0.1)',
+          borderWidth: 2.5,
+          pointBackgroundColor: '#58a6ff',
+          pointRadius: 4,
+          tension: 0.3,
+          fill: true
+        },
+        {
+          label: '目标 72kg',
+          data: targetLine,
+          borderColor: '#3fb950',
+          borderWidth: 1.5,
+          borderDash: [5, 5],
+          pointRadius: 0,
+          fill: false
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: '#8b949e', font: { size: 11 } } }
+      },
+      scales: {
+        y: {
+          grid: { color: 'rgba(255,255,255,0.05)' },
+          ticks: { color: '#8b949e', font: { size: 11 } }
+        },
+        x: {
+          grid: { display: false },
+          ticks: { color: '#8b949e', font: { size: 10 } }
+        }
+      }
+    }
+  });
+
+  // Update latest display
+  var latest = DATA.weight[DATA.weight.length - 1];
+  document.getElementById('weight-latest').innerHTML = latest.value + '<span class="unit">kg</span>';
+  var gap = (72 - latest.value).toFixed(1);
+  document.getElementById('weight-gap').innerHTML = (gap > 0 ? '+' : '') + gap + '<span class="unit">kg</span>';
+}
+
+// ============================================================
+// RECORD RENDERING
+// ============================================================
+function renderFatRecords() {
+  var html = '';
+  DATA.fat.slice().reverse().forEach(function(d) {
+    html += '<div class="record-item"><span class="record-date">' + d.date + '</span><span class="record-value">' + d.value + '%</span></div>';
+  });
+  document.getElementById('fat-records').innerHTML = html;
+}
+
+function renderWeightRecords() {
+  if (DATA.weight.length === 0) {
+    document.getElementById('weight-records').innerHTML = '<div class="empty-state"><div class="icon">⚖️</div><div>发体重照片给我，自动更新记录</div></div>';
+    return;
+  }
+  var html = '';
+  DATA.weight.slice().reverse().forEach(function(d) {
+    html += '<div class="record-item"><span class="record-date">' + d.date + '</span><span class="record-value">' + d.value + ' kg</span></div>';
+  });
+  document.getElementById('weight-records').innerHTML = html;
+}
+
+function renderPhotos() {
+  if (DATA.photos.length === 0) {
+    document.getElementById('photo-grid').innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="icon">📷</div><div>发健身照片给我，自动收录到相册</div></div>';
+    return;
+  }
+  var html = '';
+  DATA.photos.forEach(function(p) {
+    html += '<div class="photo-item"><img src="' + p.url + '" alt="' + p.date + '"><div class="photo-date">' + p.date + '</div></div>';
+  });
+  document.getElementById('photo-grid').innerHTML = html;
+}
+
+// ============================================================
+// INIT
+// ============================================================
+window.addEventListener('load', function() {
+  renderFatChart();
+  renderFatRecords();
+  renderWeightRecords();
+  renderPhotos();
+});
+</script>
+</body>
+</html>
