@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Libre+Baskerville:ital@1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <title>Sculpt Eric</title>
 <style>
 /* ============================================================
@@ -887,86 +890,265 @@ body {
 .recover-hint strong { color: var(--white); }
 
 /* ============================================================
-   GALLERY PAGE
+   GALLERY — ISLAND EDITORIAL
+   Inspired by Lonely Planet · dark canvas · magazine warmth
+   Palette: #000 bg · #FDFBF7 cream · #D4A853 gold accent
+   Fonts: Playfair Display (hero) · Libre Baskerville Italic (sub)
    ============================================================ */
-.gallery-stats {
-  display: flex;
-  border-bottom: 1px solid var(--border);
-}
-.gstat-cell {
-  flex: 1;
-  padding: 20px 16px;
-  border-right: 1px solid var(--border);
-  text-align: center;
-}
-.gstat-cell:last-child { border-right: none; }
-.gstat-num {
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: -1px;
-  color: var(--white);
-  margin-bottom: 4px;
-}
-.gstat-lbl {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gray2);
+
+/* Google Fonts loaded inline below */
+
+.gallery-page {
+  background: #000000;
+  min-height: 100vh;
+  padding-bottom: 90px;
 }
 
-.gallery-prompt {
-  margin: 16px;
-  background: var(--card);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius);
-  padding: 20px;
+/* ---- Hero ---- */
+.g-hero {
+  position: relative;
+  width: 100%;
+  height: 68vw;
+  max-height: 420px;
+  min-height: 240px;
+  overflow: hidden;
+  background: #111;
+}
+.g-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+.g-hero-img.active { opacity: 1; }
+.g-hero-mask {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.08) 0%,
+    rgba(0,0,0,0.15) 40%,
+    rgba(0,0,0,0.72) 75%,
+    rgba(0,0,0,0.95) 100%
+  );
+  z-index: 1;
+}
+.g-hero-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0 20px 20px;
+  z-index: 2;
+}
+.g-hero-eyebrow {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #D4A853;
+  margin-bottom: 6px;
+}
+.g-hero-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+  color: #FDFBF7;
+  margin-bottom: 6px;
+}
+.g-hero-sub {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(253,251,247,0.6);
+  line-height: 1.4;
+}
+.g-hero-dots {
+  display: flex;
+  gap: 5px;
+  margin-top: 12px;
+}
+.g-hero-dot {
+  width: 18px; height: 2px;
+  border-radius: 1px;
+  background: rgba(253,251,247,0.25);
+  transition: background 0.4s;
+}
+.g-hero-dot.active {
+  background: #D4A853;
+  width: 28px;
+}
+.g-hero-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  z-index: 2;
+}
+.g-hero-empty-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 38px;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  color: #FDFBF7;
+  text-align: center;
+  padding: 0 28px;
+}
+.g-hero-empty-line {
+  width: 40px; height: 1px;
+  background: #D4A853;
+  margin: 16px auto;
+}
+.g-hero-empty-sub {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(253,251,247,0.45);
+  text-align: center;
+  padding: 0 40px;
+  line-height: 1.6;
+}
+
+/* ---- Summary line ---- */
+.g-summary {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.g-summary-text {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+.g-summary-sep {
+  margin: 0 10px;
+  color: rgba(212,168,83,0.4);
+  font-size: 10px;
+}
+
+/* ---- Upload prompt ---- */
+.g-prompt {
+  margin: 16px 20px;
+  padding: 16px 18px;
+  border: 1px solid rgba(212,168,83,0.2);
+  border-radius: 12px;
+  background: rgba(212,168,83,0.04);
   display: flex;
   align-items: center;
   gap: 14px;
 }
-.gallery-prompt-icon {
-  width: 44px; height: 44px;
-  border-radius: 12px;
-  background: var(--green-dim);
-  border: 1px solid rgba(0,230,118,0.2);
+.g-prompt-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(212,168,83,0.25);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
-  /* No emoji — SVG icons only */
 }
-.gallery-prompt-text { font-size: 14px; color: var(--gray2); line-height: 1.5; }
-.gallery-prompt-text strong { color: var(--white); }
+.g-prompt-text {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 13px;
+  color: rgba(253,251,247,0.55);
+  line-height: 1.5;
+}
+.g-prompt-text strong { color: #FDFBF7; font-weight: 600; }
 
-.photo-grid { columns: 2; column-gap: 8px; padding: 8px 16px 0; }
-.photo-item {
-  break-inside: avoid;
-  margin-bottom: 8px;
-  border-radius: 14px;
-  overflow: hidden;
-  background: var(--card);
-  border: 1px solid var(--border);
+/* ---- Section label ---- */
+.g-section-label {
+  padding: 20px 20px 12px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+}
+
+/* ---- Magazine grid ---- */
+.g-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 0 16px;
+}
+.g-card {
   position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  background: #111;
+  cursor: pointer;
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.25,0.8,0.25,1),
+              box-shadow 0.4s cubic-bezier(0.25,0.8,0.25,1);
+  animation: cardIn 0.5s ease both;
 }
-.photo-item img { width: 100%; display: block; object-fit: cover; min-height: 140px; }
-.photo-overlay {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 28px 12px 10px;
-  background: linear-gradient(transparent, rgba(8,8,8,0.92));
+.g-card:active {
+  transform: perspective(1000px) rotateY(-3deg) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
 }
-.photo-overlay-date { font-size: 12px; font-weight: 700; color: var(--white); }
-.photo-overlay-cap { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
-.gallery-empty {
-  display: flex; flex-direction: column; align-items: center;
-  padding: 80px 32px;
-  text-align: center;
+@keyframes cardIn {
+  from { opacity:0; transform: translateY(16px); }
+  to   { opacity:1; transform: translateY(0); }
 }
-.gallery-empty-icon { margin-bottom: 20px; display:flex; align-items:center; justify-content:center; }
-.gallery-empty-title {
-  font-size: 20px; font-weight: 700;
+.g-card:nth-child(2) { animation-delay: 0.06s; }
+.g-card:nth-child(3) { animation-delay: 0.12s; }
+.g-card:nth-child(4) { animation-delay: 0.18s; }
+.g-card:nth-child(5) { animation-delay: 0.24s; }
+.g-card:nth-child(6) { animation-delay: 0.30s; }
+.g-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.g-card-mask {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    rgba(0,0,0,0.85) 100%
+  );
+}
+.g-card-body {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 12px;
+}
+.g-card-date {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1;
+  color: #FDFBF7;
   letter-spacing: -0.5px;
-  color: var(--white); margin-bottom: 8px;
+  margin-bottom: 3px;
 }
-.gallery-empty-sub { font-size: 14px; color: var(--gray2); line-height: 1.6; }
+.g-card-cap {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-style: italic;
+  font-size: 11px;
+  color: rgba(253,251,247,0.55);
+  line-height: 1.3;
+}
+.g-card-accent {
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 28px; height: 2px;
+  background: #D4A853;
+  border-radius: 1px;
+}
 
 /* ============================================================
    SHARED UTILITIES
@@ -1309,40 +1491,47 @@ body {
 </div>
 
 <!-- ======================================================
-     PAGE: GALLERY
+     PAGE: GALLERY — ISLAND EDITORIAL
      ====================================================== -->
-<div id="page-gallery" class="page">
+<div id="page-gallery" class="page gallery-page">
 
-  <div class="gallery-stats">
-    <div class="gstat-cell">
-      <div class="gstat-num" id="g-total">0</div>
-      <div class="gstat-lbl">Photos</div>
+  <!-- Hero -->
+  <div class="g-hero" id="g-hero">
+    <!-- Hero images injected by JS -->
+    <div class="g-hero-mask"></div>
+    <div class="g-hero-content" id="g-hero-content" style="display:none">
+      <div class="g-hero-eyebrow" id="g-hero-eyebrow">Latest Session</div>
+      <div class="g-hero-title" id="g-hero-title">JUNE · WEEK 3</div>
+      <div class="g-hero-sub" id="g-hero-sub">66.4 kg · Body Fat 16%</div>
+      <div class="g-hero-dots" id="g-hero-dots"></div>
     </div>
-    <div class="gstat-cell">
-      <div class="gstat-num" id="g-month">0</div>
-      <div class="gstat-lbl">This Month</div>
-    </div>
-    <div class="gstat-cell">
-      <div class="gstat-num" id="g-days">0</div>
-      <div class="gstat-lbl">Days Logged</div>
+    <div class="g-hero-empty" id="g-hero-empty">
+      <div class="g-hero-empty-title">"EVERY REP<br>IS A PAGE."</div>
+      <div class="g-hero-empty-line"></div>
+      <div class="g-hero-empty-sub">Your transformation story,<br>told through photographs.</div>
     </div>
   </div>
 
-  <div class="gallery-prompt">
-    <div class="gallery-prompt-icon">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="#00E676"><path d="M9 3L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2h-3.17L15 3H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.65 0-3 1.35-3 3s1.35 3 3 3 3-1.35 3-3-1.35-3-3-3z"/></svg>
-    </div>
-    <div class="gallery-prompt-text">Send me a <strong>workout photo</strong> → I'll auto-archive it with date and caption.</div>
+  <!-- Summary line -->
+  <div class="g-summary" id="g-summary-row">
+    <span class="g-summary-text" id="g-sum-photos">0 Photos</span>
+    <span class="g-summary-sep">·</span>
+    <span class="g-summary-text" id="g-sum-weeks">0 Weeks</span>
+    <span class="g-summary-sep">·</span>
+    <span class="g-summary-text" id="g-sum-days">0 Days Logged</span>
   </div>
 
-  <div id="g-grid" class="photo-grid" style="display:none"></div>
-  <div id="g-empty" class="gallery-empty">
-    <div class="gallery-empty-icon">
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="#333"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+  <!-- Upload prompt -->
+  <div class="g-prompt">
+    <div class="g-prompt-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#D4A853"><path d="M9 3L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2h-3.17L15 3H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.65 0-3 1.35-3 3s1.35 3 3 3 3-1.35 3-3-1.35-3-3-3z"/></svg>
     </div>
-    <div class="gallery-empty-title">Your Story Begins Here</div>
-    <div class="gallery-empty-sub">Every photo is proof of work done.<br>Start documenting your transformation.</div>
+    <div class="g-prompt-text">Send me a <strong>workout photo</strong> — I'll archive it in your story.</div>
   </div>
+
+  <!-- Magazine grid -->
+  <div class="g-section-label" id="g-section-label" style="display:none">The Archive</div>
+  <div class="g-grid" id="g-grid"></div>
 
 </div>
 
@@ -1600,26 +1789,98 @@ window.SCULPT = (function() {
     }
   }
 
-  /* ---- RENDER GALLERY ---- */
+  /* ---- RENDER GALLERY — ISLAND EDITORIAL ---- */
   function renderGallery() {
     const photos = D.photos;
     const n = photos.length;
-    $('g-total').textContent = n;
-    const now = new Date(), thisMonth = now.toISOString().slice(0,7);
-    $('g-month').textContent = photos.filter(p => p.date.startsWith(thisMonth)).length;
-    $('g-days').textContent = new Set(photos.map(p => p.date)).size;
-
-    const grid = $('g-grid'), empty = $('g-empty');
-    if (n === 0) { grid.style.display='none'; empty.style.display='flex'; return; }
-    grid.style.display='block'; empty.style.display='none';
     const sorted = [...photos].sort((a,b) => b.date.localeCompare(a.date));
-    grid.innerHTML = sorted.map(p => `<div class="photo-item">
-      <img src="${p.src}" alt="Workout ${p.date}" loading="lazy">
-      <div class="photo-overlay">
-        <div class="photo-overlay-date">${p.date}</div>
-        ${p.caption ? `<div class="photo-overlay-cap">${p.caption}</div>` : ''}
-      </div>
-    </div>`).join('');
+    const days = new Set(photos.map(p => p.date)).size;
+    const weeks = Math.ceil(days / 7) || 0;
+
+    // Summary line
+    $('g-sum-photos').textContent = n + (n === 1 ? ' Photo' : ' Photos');
+    $('g-sum-weeks').textContent = weeks + (weeks === 1 ? ' Week' : ' Weeks');
+    $('g-sum-days').textContent = days + ' Days Logged';
+
+    // Hero
+    const hero = $('g-hero');
+    const heroContent = $('g-hero-content');
+    const heroEmpty = $('g-hero-empty');
+    const heroDotsEl = $('g-hero-dots');
+
+    // Clear old hero images
+    hero.querySelectorAll('.g-hero-img').forEach(el => el.remove());
+
+    if (n === 0) {
+      heroContent.style.display = 'none';
+      heroEmpty.style.display = 'flex';
+      $('g-section-label').style.display = 'none';
+      $('g-grid').innerHTML = '';
+      return;
+    }
+
+    heroEmpty.style.display = 'none';
+    heroContent.style.display = 'block';
+    $('g-section-label').style.display = 'block';
+
+    // Hero: up to 3 latest photos
+    const heroPhotos = sorted.slice(0, Math.min(3, n));
+    let heroIdx = 0;
+
+    heroPhotos.forEach((p, i) => {
+      const img = document.createElement('img');
+      img.className = 'g-hero-img' + (i === 0 ? ' active' : '');
+      img.src = p.src;
+      img.alt = '';
+      hero.insertBefore(img, hero.querySelector('.g-hero-mask'));
+    });
+
+    // Dots
+    heroDotsEl.innerHTML = heroPhotos.map((_, i) =>
+      `<div class="g-hero-dot${i===0?' active':''}" data-i="${i}"></div>`
+    ).join('');
+
+    function updateHeroDisplay(idx) {
+      const imgs = hero.querySelectorAll('.g-hero-img');
+      const dots = heroDotsEl.querySelectorAll('.g-hero-dot');
+      imgs.forEach((el, i) => el.classList.toggle('active', i === idx));
+      dots.forEach((el, i) => el.classList.toggle('active', i === idx));
+      const p = heroPhotos[idx];
+      // Format date nicely
+      const d = new Date(p.date + 'T00:00:00');
+      const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+      $('g-hero-eyebrow').textContent = 'Session · ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+      $('g-hero-title').textContent = months[d.getMonth()] + ' · WEEK ' + Math.ceil(d.getDate()/7);
+      $('g-hero-sub').textContent = p.caption || 'Sculpt Eric · Training Session';
+    }
+
+    updateHeroDisplay(0);
+
+    // Auto-cycle if multiple
+    if (window._heroTimer) clearInterval(window._heroTimer);
+    if (heroPhotos.length > 1) {
+      window._heroTimer = setInterval(() => {
+        heroIdx = (heroIdx + 1) % heroPhotos.length;
+        updateHeroDisplay(heroIdx);
+      }, 4000);
+    }
+
+    // Magazine grid (exclude hero photo if only 1, show all otherwise)
+    const gridPhotos = n > 1 ? sorted : sorted;
+    $('g-grid').innerHTML = gridPhotos.map((p, i) => {
+      const d = new Date(p.date + 'T00:00:00');
+      const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+      const dateLabel = d.getDate() + ' ' + months[d.getMonth()];
+      return `<div class="g-card" style="animation-delay:${i*0.06}s">
+        <img src="${p.src}" alt="" loading="lazy">
+        <div class="g-card-mask"></div>
+        <div class="g-card-accent"></div>
+        <div class="g-card-body">
+          <div class="g-card-date">${dateLabel}</div>
+          ${p.caption ? `<div class="g-card-cap">${p.caption}</div>` : ''}
+        </div>
+      </div>`;
+    }).join('');
   }
 
   /* ---- RENDER PULLUPS ---- */
