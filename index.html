@@ -1706,8 +1706,12 @@ window.SCULPT = (function() {
     }
   }
 
-  const uploadInput = document.getElementById('g-upload-input');
-  uploadInput.addEventListener('change', function(e) {
+  let uploadInput = null;
+  function initUpload() {
+    if (uploadInput) return;
+    uploadInput = document.getElementById('g-upload-input');
+    if (!uploadInput) return;
+    uploadInput.addEventListener('change', function(e) {
     const file = e.target.files[0];
     if (!file || !file.type.match('image/')) return;
     if (file.size > 10 * 1024 * 1024) {
@@ -1734,8 +1738,11 @@ window.SCULPT = (function() {
     };
     reader.readAsDataURL(file);
   });
+  }
 
   render();
+
+  initUpload();
 
   return { data: D, switchTab, updateBodyComposition, updateWeight, logPullups, addPhoto, render, deletePhoto };
 })();
