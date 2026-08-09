@@ -1034,25 +1034,22 @@ window.SCULPT = (function() {
     ],
     supplements: {
       daily: [
-        { name: 'Whey Protein', nameCn: '乳清蛋白', dose: '25g', timing: 'daily', timingCn: '每日', note: 'Morning shake · 早餐奶昔' },
-        { name: 'Creatine Monohydrate', nameCn: '一水肌酸', dose: '5g', timing: 'daily', timingCn: '每日', note: 'Any time · 任意时间' },
-        { name: 'Fish Oil (Omega-3)', nameCn: '鱼油', dose: '2g EPA+DHA', timing: 'daily', timingCn: '每日', note: 'With meals · 随餐' }
-      ],
-      workout: [
-        { name: 'Caffeine', nameCn: '咖啡因', dose: '200mg', timing: 'pre', timingCn: '训练前', note: '30 min before · 训练前30分钟' },
-        { name: 'Beta-Alanine', nameCn: 'β-丙氨酸', dose: '3g', timing: 'pre', timingCn: '训练前', note: 'Pre-workout · 训练前' },
-        { name: 'Whey Protein', nameCn: '乳清蛋白', dose: '25g', timing: 'post', timingCn: '训练后', note: 'Within 30 min · 30分钟内' }
-      ],
-      health: [
-        { name: 'Vitamin D3', nameCn: '维生素D3', dose: '2000 IU', timing: 'daily', timingCn: '每日', note: 'Morning · 早晨' },
+        { name: 'Vitamin D3', nameCn: '维生素D3', dose: '2000 IU', timing: 'daily', timingCn: '每日', note: 'Morning with food · 早晨随餐' },
         { name: 'Magnesium', nameCn: '镁', dose: '400mg', timing: 'occasional', timingCn: '按需', note: 'Before bed · 睡前' },
         { name: 'Zinc', nameCn: '锌', dose: '15mg', timing: 'daily', timingCn: '每日', note: 'With food · 随餐' }
       ],
+      workout: [
+        { name: 'Cellgenix Diet ZX', nameCn: '生热燃脂胶囊', dose: '1 cap (700mg)', timing: 'pre', timingCn: '训练前', note: '30 min before workout · 训练前30分钟. Caffeine 200mg + L-Carnitine 150mg + Moro Orange · 含咖啡因200mg' },
+        { name: 'Whey Protein', nameCn: '乳清蛋白', dose: '25g', timing: 'post', timingCn: '训练后', note: 'Within 30 min after · 30分钟内' }
+      ],
+      health: [
+        { name: 'Fish Oil (Omega-3)', nameCn: '鱼油', dose: '2g EPA+DHA', timing: 'daily', timingCn: '每日', note: 'With meals · 随餐' }
+      ],
       schedule: [
-        { time: '07:00', timeCn: '早晨', items: ['Whey Protein · 乳清蛋白', 'Vitamin D3 · 维生素D3'] },
-        { time: 'Pre-Workout', timeCn: '训练前', items: ['Caffeine · 咖啡因', 'Beta-Alanine · β-丙氨酸'] },
-        { time: 'Post-Workout', timeCn: '训练后', items: ['Whey Protein · 乳清蛋白', 'Creatine · 肌酸'] },
-        { time: '22:00', timeCn: '睡前', items: ['Magnesium · 镁', 'Fish Oil · 鱼油'] }
+        { time: '07:00', timeCn: '早晨', items: ['Vitamin D3 · 维生素D3', 'Zinc · 锌', 'Fish Oil · 鱼油'] },
+        { time: 'Pre-Workout', timeCn: '训练前', items: ['Cellgenix Diet ZX · 生热燃脂胶囊'] },
+        { time: 'Post-Workout', timeCn: '训练后', items: ['Whey Protein · 乳清蛋白'] },
+        { time: '22:00', timeCn: '睡前', items: ['Magnesium · 镁'] }
       ]
     }
   };
