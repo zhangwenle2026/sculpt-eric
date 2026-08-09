@@ -377,6 +377,55 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text'
 .supp-schedule-time{font-size:13px;font-weight:700;color:var(--white);margin-bottom:6px}
 .supp-schedule-list{font-size:12px;color:var(--gray2);line-height:1.6}
 .supp-schedule-list strong{color:var(--white)}
+
+/* ============================================================
+   PAGE: SUPPLEMENTS — Product Cards (v3.3)
+   ============================================================ */
+.supp-product-card{margin:0 16px 12px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:transform 0.2s,box-shadow 0.2s}
+.supp-product-card:active{transform:scale(0.995)}
+.supp-product-header{padding:18px 20px 14px;display:flex;align-items:flex-start;gap:14px;border-bottom:1px solid var(--border)}
+.supp-product-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.supp-product-icon.green{background:var(--green-dim);border:1px solid rgba(0,230,118,0.2)}
+.supp-product-icon.blue{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2)}
+.supp-product-icon.purple{background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.2)}
+.supp-product-icon.amber{background:rgba(255,159,10,0.08);border:1px solid rgba(255,159,10,0.2)}
+.supp-product-icon.red{background:rgba(255,59,48,0.08);border:1px solid rgba(255,59,48,0.2)}
+.supp-product-title{flex:1}
+.supp-product-name-en{font-size:16px;font-weight:700;color:var(--white);letter-spacing:-0.3px;line-height:1.3}
+.supp-product-name-cn{font-size:12px;font-weight:400;color:var(--gray3);margin-top:2px}
+.supp-product-tag{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);background:var(--green-dim);border:1px solid rgba(0,230,118,0.15);border-radius:6px;padding:3px 10px;display:inline-block;margin-top:6px}
+.supp-product-tag.thermo{color:var(--amber);background:rgba(255,159,10,0.06);border-color:rgba(255,159,10,0.15)}
+.supp-product-tag.protein{color:var(--blue);background:rgba(59,130,246,0.06);border-color:rgba(59,130,246,0.15)}
+.supp-product-tag.vitamin{color:var(--purple);background:rgba(168,85,247,0.06);border-color:rgba(168,85,247,0.15)}
+.supp-product-tag.mineral{color:#00BFA5;background:rgba(0,191,165,0.06);border-color:rgba(0,191,165,0.15)}
+.supp-product-section{padding:14px 20px;border-bottom:1px solid var(--border)}
+.supp-product-section:last-child{border-bottom:none}
+.supp-section-title-en{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray3);margin-bottom:8px}
+.supp-section-title-cn{font-size:10px;font-weight:500;color:var(--gray4);margin-top:1px}
+.supp-ingredient-row{display:flex;align-items:center;gap:8px;padding:5px 0}
+.supp-ingredient-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.supp-ingredient-name{font-size:13px;font-weight:600;color:var(--white);flex:1}
+.supp-ingredient-dose{font-size:12px;font-weight:600;color:var(--gray2);font-variant-numeric:tabular-nums}
+.supp-howto-row{display:flex;align-items:center;gap:8px;padding:4px 0}
+.supp-howto-icon{width:16px;height:16px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.supp-howto-text{font-size:13px;color:var(--gray1);line-height:1.5}
+.supp-howto-text strong{color:var(--white);font-weight:600}
+.supp-warning{padding:10px 14px;border-radius:8px;background:rgba(255,159,10,0.06);border:1px solid rgba(255,159,10,0.12);margin-top:8px}
+.supp-warning-text{font-size:12px;color:var(--amber);font-weight:500}
+
+/* Timeline v2 */
+.supp-timeline-card{margin:0 16px 12px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.supp-timeline-header{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.supp-timeline-icon{width:32px;height:32px;border-radius:8px;background:var(--green-dim);border:1px solid rgba(0,230,118,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.supp-timeline-title-en{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray2)}
+.supp-timeline-title-cn{font-size:11px;font-weight:500;color:var(--gray3);margin-top:1px}
+.supp-timeline-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.supp-timeline-item:last-child{border-bottom:none;padding-bottom:0}
+.supp-timeline-item:first-child{padding-top:0}
+.supp-timeline-time{flex-shrink:0;width:56px;font-size:13px;font-weight:700;color:var(--green);text-align:right}
+.supp-timeline-body{flex:1}
+.supp-timeline-products{font-size:13px;font-weight:600;color:var(--white);line-height:1.5}
+.supp-timeline-note{font-size:11px;color:var(--gray3);margin-top:2px}
 </style>
 </head>
 <body>
@@ -917,7 +966,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text'
 </div>
 
 <!-- ======================================================
-     PAGE: SUPPLEMENTS
+     PAGE: SUPPLEMENTS — Product Cards v3.3
      ====================================================== -->
 <div id="page-supplements" class="page">
 
@@ -929,42 +978,28 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text'
   </div>
 
   <div class="section-label">
-    <div class="section-label-en">Daily Stack</div>
-    <div class="section-label-cn">日常补剂</div>
+    <div class="section-label-en">My Products</div>
+    <div class="section-label-cn">我的补剂</div>
   </div>
 
-  <div class="supp-category" id="supp-daily"></div>
+  <div id="supp-products"></div>
 
   <div class="section-label">
-    <div class="section-label-en">Workout Stack</div>
-    <div class="section-label-cn">训练补剂</div>
+    <div class="section-label-en">Daily Timeline</div>
+    <div class="section-label-cn">每日时间线</div>
   </div>
 
-  <div class="supp-category" id="supp-workout"></div>
-
-  <div class="section-label">
-    <div class="section-label-en">Health & Recovery</div>
-    <div class="section-label-cn">健康与恢复</div>
-  </div>
-
-  <div class="supp-category" id="supp-health"></div>
-
-  <div class="section-label">
-    <div class="section-label-en">Schedule</div>
-    <div class="section-label-cn">服用计划</div>
-  </div>
-
-  <div class="supp-schedule-card">
-    <div class="supp-schedule-header">
-      <div class="supp-schedule-icon">
+  <div class="supp-timeline-card">
+    <div class="supp-timeline-header">
+      <div class="supp-timeline-icon">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="#00E676"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
       </div>
       <div>
-        <div class="supp-schedule-title-en">Daily Timeline</div>
-        <div class="supp-schedule-title-cn">每日时间线</div>
+        <div class="supp-timeline-title-en">When to Take</div>
+        <div class="supp-timeline-title-cn">服用时间线</div>
       </div>
     </div>
-    <div class="supp-schedule-grid" id="supp-schedule"></div>
+    <div id="supp-timeline"></div>
   </div>
 
 </div>
@@ -1032,27 +1067,39 @@ window.SCULPT = (function() {
       { src: 'photo_boulder_03.jpg', date: '2026-06-16', caption: 'Bouldering &middot; Hang' },
       { src: 'photo_boulder_04.jpg', date: '2026-06-16', caption: 'Bouldering &middot; Slab' }
     ],
-    supplements: {
-      daily: [
-        { name: 'Vitamin D3', nameCn: '维生素D3', dose: '2000 IU', timing: 'daily', timingCn: '每日', note: 'Morning with food · 早晨随餐' },
-        { name: 'Magnesium', nameCn: '镁', dose: '400mg', timing: 'occasional', timingCn: '按需', note: 'Before bed · 睡前' },
-        { name: 'Zinc', nameCn: '锌', dose: '15mg', timing: 'daily', timingCn: '每日', note: 'With food · 随餐' }
-      ],
-      workout: [
-        { name: 'Cellgenix Diet ZX', nameCn: '生热燃脂胶囊', dose: '1 cap (700mg)', timing: 'pre', timingCn: '训练前', note: '30 min before · 训练前30分钟. Caffeine 200mg + L-Carnitine 150mg + Moro Orange' },
-        { name: 'LET\'S GET FIT', nameCn: '复合燃脂胶囊', dose: '2 caps (1.4g)', timing: 'pre', timingCn: '训练前', note: '30 min before · 训练前30分钟. Caffeine 200mg + L-Carnitine 150mg + Chromium 250mcg + B3/B5 + Moro Orange' },
-        { name: 'Whey Protein', nameCn: '乳清蛋白', dose: '25g', timing: 'post', timingCn: '训练后', note: 'Within 30 min after · 30分钟内' }
-      ],
-      health: [
-        { name: 'Fish Oil (Omega-3)', nameCn: '鱼油', dose: '2g EPA+DHA', timing: 'daily', timingCn: '每日', note: 'With meals · 随餐' }
-      ],
-      schedule: [
-        { time: '07:00', timeCn: '早晨', items: ['Vitamin D3 · 维生素D3', 'Zinc · 锌', 'Fish Oil · 鱼油'] },
-        { time: 'Pre-Workout', timeCn: '训练前', items: ['Cellgenix Diet ZX · 生热燃脂胶囊'] },
-        { time: 'Post-Workout', timeCn: '训练后', items: ['Whey Protein · 乳清蛋白'] },
-        { time: '22:00', timeCn: '睡前', items: ['Magnesium · 镁'] }
-      ]
-    }
+    supplements: [
+      {
+        id: 'diet-zx',
+        name: "LET'S GET FIT",
+        nameCn: '复合燃脂胶囊',
+        brand: 'CR Nutrition',
+        tag: 'thermo',
+        tagEn: 'Thermogenic',
+        tagCn: '生热燃脂',
+        iconColor: '#FF9F0A',
+        serving: '2 capsules',
+        servingCn: '2粒',
+        perBottle: '60 servings',
+        perBottleCn: '60份/瓶',
+        ingredients: [
+          { name: 'Caffeine', nameCn: '咖啡因', dose: '200mg', color: '#FF9F0A' },
+          { name: 'L-Carnitine', nameCn: '左旋肉碱', dose: '150mg', color: '#00E676' },
+          { name: 'Chromium', nameCn: '铬', dose: '250mcg', color: '#3B82F6' },
+          { name: 'Niacin (B3)', nameCn: '烟酸 B3', dose: '16mg', color: '#A855F7' },
+          { name: 'Pantothenic Acid (B5)', nameCn: '泛酸 B5', dose: '5mg', color: '#A855F7' },
+          { name: 'Moro Orange', nameCn: '血橙提取物', dose: '1mg', color: '#FF9F0A' }
+        ],
+        purpose: 'Boosts metabolism, promotes fat oxidation, enhances focus, stabilizes blood sugar.',
+        purposeCn: '提升代谢率、促进脂肪氧化、增强专注力、稳定血糖。',
+        howTo: 'Take 2 capsules 30 minutes before workout. Contains 200mg caffeine — avoid after 4 PM.',
+        howToCn: '训练前30分钟服用2粒。含咖啡因200mg，下午4点后避免服用。',
+        warning: 'Contains caffeine. Do not combine with other caffeine sources.',
+        warningCn: '含咖啡因。不要与其他咖啡因来源同时服用。',
+        frequency: 'Workout days only',
+        frequencyCn: '仅训练日',
+        schedule: 'Pre-Workout'
+      }
+    ]
   };
 
   const $ = id => document.getElementById(id);
@@ -1305,53 +1352,83 @@ window.SCULPT = (function() {
   }
 
   function renderSupplements() {
-    const s = D.supplements;
-    const catMap = {
-      daily: { el: 'supp-daily', nameEn: 'Daily Essentials', nameCn: '日常必需', icon: 'green', color: '#00E676' },
-      workout: { el: 'supp-workout', nameEn: 'Workout Stack', nameCn: '训练专用', icon: 'blue', color: '#3B82F6' },
-      health: { el: 'supp-health', nameEn: 'Health & Recovery', nameCn: '健康恢复', icon: 'purple', color: '#A855F7' }
-    };
-    Object.keys(catMap).forEach(key => {
-      const cfg = catMap[key];
-      const items = s[key];
-      const container = $(cfg.el);
-      if (!container) return;
-      const dotCls = { daily: 'daily', pre: 'pre', post: 'post', occasional: 'occasional' };
-      const tagCls = { daily: '', pre: 'pre', post: 'post', occasional: 'occ' };
-      container.innerHTML = `
-        <div class="supp-cat-header">
-          <div class="supp-cat-icon ${cfg.icon}">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="${cfg.color}"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/></svg>
+    const products = D.supplements;
+    const container = $('supp-products');
+    if (!container) return;
+
+    const tagClass = { thermo: 'thermo', protein: 'protein', vitamin: 'vitamin', mineral: 'mineral' };
+    const tagColor = { thermo: '#FF9F0A', protein: '#3B82F6', vitamin: '#A855F7', mineral: '#00BFA5' };
+
+    container.innerHTML = products.map(p => `
+      <div class="supp-product-card">
+        <div class="supp-product-header">
+          <div class="supp-product-icon" style="background:${tagColor[p.tag] || '#00E676'}08;border-color:${tagColor[p.tag] || '#00E676'}33">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="${tagColor[p.tag] || '#00E676'}"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/></svg>
           </div>
-          <div class="supp-cat-info">
-            <div class="supp-cat-name-en">${cfg.nameEn}</div>
-            <div class="supp-cat-name-cn">${cfg.nameCn}</div>
+          <div class="supp-product-title">
+            <div class="supp-product-name-en">${p.name}</div>
+            <div class="supp-product-name-cn">${p.nameCn}</div>
+            <div class="supp-product-tag ${tagClass[p.tag] || ''}">${p.tagEn} · ${p.tagCn}</div>
           </div>
-          <div class="supp-cat-count">${items.length}</div>
         </div>
-        ${items.map(it => `
-          <div class="supp-item">
-            <div class="supp-item-dot ${dotCls[it.timing] || 'daily'}"></div>
-            <div class="supp-item-body">
-              <div class="supp-item-name">${it.name}</div>
-              <div class="supp-item-name-cn">${it.nameCn}</div>
-              <div class="supp-item-meta">
-                <span class="supp-item-dose">${it.dose}</span>
-                <span class="supp-item-tag ${tagCls[it.timing] || ''}">${it.timingCn}</span>
-              </div>
+
+        <div class="supp-product-section">
+          <div class="supp-section-title-en">Ingredients · 成分</div>
+          ${p.ingredients.map(ing => `
+            <div class="supp-ingredient-row">
+              <div class="supp-ingredient-dot" style="background:${ing.color};box-shadow:0 0 4px ${ing.color}80"></div>
+              <div class="supp-ingredient-name">${ing.name} <span style="color:var(--gray3)">· ${ing.nameCn}</span></div>
+              <div class="supp-ingredient-dose">${ing.dose}</div>
             </div>
+          `).join('')}
+          <div class="supp-ingredient-row" style="margin-top:6px;padding-top:8px;border-top:1px solid var(--border)">
+            <div class="supp-ingredient-dot" style="background:var(--gray3)"></div>
+            <div class="supp-ingredient-name" style="color:var(--gray2)">Serving Size · 单次剂量</div>
+            <div class="supp-ingredient-dose">${p.serving}</div>
           </div>
-        `).join('')}
-      `;
-    });
-    const sched = $('supp-schedule');
-    if (sched) {
-      sched.innerHTML = s.schedule.map(slot => `
-        <div class="supp-schedule-slot">
-          <div class="supp-schedule-time">${slot.time}</div>
-          <div class="supp-schedule-list">${slot.items.map(it => `<div>${it}</div>`).join('')}</div>
+          <div class="supp-ingredient-row">
+            <div class="supp-ingredient-dot" style="background:var(--gray3)"></div>
+            <div class="supp-ingredient-name" style="color:var(--gray2)">Per Bottle · 每瓶</div>
+            <div class="supp-ingredient-dose">${p.perBottle}</div>
+          </div>
         </div>
-      `).join('');
+
+        <div class="supp-product-section">
+          <div class="supp-section-title-en">Purpose · 作用</div>
+          <div class="supp-howto-text">${p.purpose} <span style="color:var(--gray3)">${p.purposeCn}</span></div>
+        </div>
+
+        <div class="supp-product-section">
+          <div class="supp-section-title-en">How to Take · 服用方法</div>
+          <div class="supp-howto-text">${p.howTo} <span style="color:var(--gray3)">${p.howToCn}</span></div>
+          ${p.warning ? `<div class="supp-warning"><div class="supp-warning-text">${p.warning} · ${p.warningCn}</div></div>` : ''}
+        </div>
+
+        <div class="supp-product-section">
+          <div class="supp-section-title-en">Schedule · 服用频率</div>
+          <div class="supp-howto-text"><strong>${p.frequency}</strong> <span style="color:var(--gray3)">${p.frequencyCn}</span></div>
+        </div>
+      </div>
+    `).join('');
+
+    const timeline = $('supp-timeline');
+    if (timeline) {
+      const slots = [
+        { time: '07:00', timeCn: '早晨', products: products.filter(p => p.schedule === 'Morning') },
+        { time: 'Pre-Workout', timeCn: '训练前', products: products.filter(p => p.schedule === 'Pre-Workout') },
+        { time: 'Post-Workout', timeCn: '训练后', products: products.filter(p => p.schedule === 'Post-Workout') },
+        { time: '22:00', timeCn: '睡前', products: products.filter(p => p.schedule === 'Bedtime') }
+      ].filter(s => s.products.length > 0);
+
+      timeline.innerHTML = slots.map(s => `
+        <div class="supp-timeline-item">
+          <div class="supp-timeline-time">${s.time}</div>
+          <div class="supp-timeline-body">
+            <div class="supp-timeline-products">${s.products.map(p => p.name + ' · ' + p.nameCn).join('<br>')}</div>
+            <div class="supp-timeline-note">${s.timeCn}</div>
+          </div>
+        </div>
+      `).join('') || '<div class="supp-timeline-item"><div class="supp-timeline-note" style="color:var(--gray3)">Add products to see timeline · 添加产品后显示时间线</div></div>';
     }
   }
 
