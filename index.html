@@ -1479,15 +1479,54 @@ window.SCULPT = (function() {
     }
 
     const gridPhotos = sorted;
-    $('g-grid').innerHTML = gridPhotos.map((p, i) => {
+    $('g-grid').innerHTML = '';
+    gridPhotos.forEach((p, i) => {
       const d = new Date(p.date + 'T00:00:00');
       const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
       const dateLabel = d.getDate() + ' ' + months[d.getMonth()] + ' · ' + d.getDate() + '日';
       const num = String(i + 1).padStart(2, '0');
-      const isUploaded = p.isUploaded;
-      const delBtn = isUploaded ? '<button class="g-delete-btn" onclick="event.stopPropagation();SCULPT.deletePhoto(' + String(i - defaultPhotos.length) + ')" title="Delete Photo">✖</button>' : '';
-      return '<div class="g-card" style="animation-delay:' + String(i*0.06) + 's"><img src="' + p.src + '" alt="" loading="lazy"><div class="g-card-mask"></div>' + delBtn + '<div class="g-card-num">' + num + '</div><div class="g-card-accent"></div><div class="g-card-body"><div class="g-card-date">' + dateLabel + '</div>' + (p.caption ? '<div class="g-card-cap">' + p.caption + '</div>' : '') + '</div></div>';
-    }).join('');
+      const card = document.createElement('div');
+      card.className = 'g-card';
+      card.style.animationDelay = i * 0.06 + 's';
+      const img = document.createElement('img');
+      img.src = p.src;
+      img.alt = '';
+      img.loading = 'lazy';
+      card.appendChild(img);
+      const mask = document.createElement('div');
+      mask.className = 'g-card-mask';
+      card.appendChild(mask);
+      if (p.isUploaded) {
+        const delBtn = document.createElement('button');
+        delBtn.className = 'g-delete-btn';
+        delBtn.title = 'Delete Photo';
+        delBtn.textContent = '✖';
+        const uploadIdx = i - defaultPhotos.length;
+        delBtn.onclick = function(e) { e.stopPropagation(); SCULPT.deletePhoto(uploadIdx); };
+        card.appendChild(delBtn);
+      }
+      const numEl = document.createElement('div');
+      numEl.className = 'g-card-num';
+      numEl.textContent = num;
+      card.appendChild(numEl);
+      const accent = document.createElement('div');
+      accent.className = 'g-card-accent';
+      card.appendChild(accent);
+      const body = document.createElement('div');
+      body.className = 'g-card-body';
+      const dateEl = document.createElement('div');
+      dateEl.className = 'g-card-date';
+      dateEl.textContent = dateLabel;
+      body.appendChild(dateEl);
+      if (p.caption) {
+        const capEl = document.createElement('div');
+        capEl.className = 'g-card-cap';
+        capEl.innerHTML = p.caption;
+        body.appendChild(capEl);
+      }
+      card.appendChild(body);
+      $('g-grid').appendChild(card);
+    });
   }
 
   function renderBody() {
@@ -1707,7 +1746,7 @@ window.SCULPT = (function() {
     }, 2400);
   })();
 
-  return { data: D, switchTab, updateBodyComposition, updateWeight, logPullups, addPhoto, render };
+  return { data: D, switchTab, updateBodyComposition, updateWeight, logPullups, addPhoto, render, deletePhoto };
 })();
 </script>
 </body>
