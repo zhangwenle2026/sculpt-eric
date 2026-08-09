@@ -1486,7 +1486,7 @@ window.SCULPT = (function() {
       const num = String(i + 1).padStart(2, '0');
       const isUploaded = p.isUploaded;
       const delBtn = isUploaded ? '<button class="g-delete-btn" onclick="event.stopPropagation();SCULPT.deletePhoto(' + String(i - defaultPhotos.length) + ')" title="Delete Photo">✖</button>' : '';
-      return '<div class="g-card" style="animation-delay:' + String(i*0.06) + 's" onclick="SCULPT.showPhoto(' + String(i) + ')"><img src="' + p.src + '" alt="" loading="lazy"><div class="g-card-mask"></div>' + delBtn + '<div class="g-card-num">' + num + '</div><div class="g-card-accent"></div><div class="g-card-body"><div class="g-card-date">' + dateLabel + '</div>' + (p.caption ? '<div class="g-card-cap">' + p.caption + '</div>' : '') + '</div></div>';
+      return '<div class="g-card" style="animation-delay:' + String(i*0.06) + 's"><img src="' + p.src + '" alt="" loading="lazy"><div class="g-card-mask"></div>' + delBtn + '<div class="g-card-num">' + num + '</div><div class="g-card-accent"></div><div class="g-card-body"><div class="g-card-date">' + dateLabel + '</div>' + (p.caption ? '<div class="g-card-cap">' + p.caption + '</div>' : '') + '</div></div>';
     }).join('');
   }
 
@@ -1657,7 +1657,44 @@ window.SCULPT = (function() {
     D.photos.push({ src, date, caption: caption || '' });
     renderGallery();
   }
-  function deletePhoto(idx) {    const uploaded = _getUploadedPhotos();    if (idx >= 0 && idx < uploaded.length) {      uploaded.splice(idx, 1);      _saveUploadedPhotos(uploaded);      renderGallery();    }  }  const uploadInput = document.getElementById('g-upload-input');  uploadInput.addEventListener('change', function(e) {    const file = e.target.files[0];    if (!file || !file.type.match('image/')) return;    if (file.size > 10 * 1024 * 1024) {      alert('File too large. Max 10MB.');      return;    }    const reader = new FileReader();    reader.onload = function(ev) {      const uploaded = _getUploadedPhotos();      uploaded.push({        src: ev.target.result,        date: new Date().toISOString().slice(0, 10),        caption: '',        isUploaded: true      });      _saveUploadedPhotos(uploaded);      renderGallery();      // Show toast      const toast = document.getElementById('g-upload-toast');      toast.classList.add('show');      setTimeout(() => toast.classList.remove('show'), 2000);      // Reset input      uploadInput.value = '';    };    reader.readAsDataURL(file);  });
+
+  function deletePhoto(idx) {
+    const uploaded = _getUploadedPhotos();
+    if (idx >= 0 && idx < uploaded.length) {
+      uploaded.splice(idx, 1);
+      _saveUploadedPhotos(uploaded);
+      renderGallery();
+    }
+  }
+
+  const uploadInput = document.getElementById('g-upload-input');
+  uploadInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file || !file.type.match('image/')) return;
+    if (file.size > 10 * 1024 * 1024) {
+      alert('File too large. Max 10MB.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const uploaded = _getUploadedPhotos();
+      uploaded.push({
+        src: ev.target.result,
+        date: new Date().toISOString().slice(0, 10),
+        caption: '',
+        isUploaded: true
+      });
+      _saveUploadedPhotos(uploaded);
+      renderGallery();
+      // Show toast
+      const toast = document.getElementById('g-upload-toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+      // Reset input
+      uploadInput.value = '';
+    };
+    reader.readAsDataURL(file);
+  });
 
   render();
 
