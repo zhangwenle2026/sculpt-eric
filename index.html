@@ -326,6 +326,57 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text'
 .g-card-cap{font-family:'Libre Baskerville',Georgia,serif;font-style:italic;font-size:11px;color:rgba(253,251,247,0.55);line-height:1.3}
 .g-card-accent{position:absolute;top:12px;right:12px;width:28px;height:2px;background:#D4A853;border-radius:1px}
 .g-card-num{position:absolute;top:10px;left:10px;font-size:10px;font-weight:600;letter-spacing:1.5px;color:rgba(253,251,247,0.5);background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:3px 7px;line-height:1}
+
+/* ============================================================
+   PAGE: SUPPLEMENTS
+   ============================================================ */
+.supp-hero{padding:32px 24px 28px;border-bottom:1px solid var(--border)}
+.supp-hero-label-en{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green)}
+.supp-hero-label-cn{font-size:10px;font-weight:500;color:var(--green);opacity:0.7;margin-top:1px}
+.supp-hero-title{font-size:40px;font-weight:800;letter-spacing:-2px;line-height:1;color:var(--white);margin-bottom:10px}
+.supp-hero-sub{font-size:14px;color:var(--gray2);line-height:1.5}
+.supp-hero-sub strong{color:var(--white)}
+
+.supp-category{margin:0 16px 12px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.supp-cat-header{padding:16px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+.supp-cat-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.supp-cat-icon.green{background:var(--green-dim);border:1px solid rgba(0,230,118,0.2)}
+.supp-cat-icon.blue{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2)}
+.supp-cat-icon.purple{background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.2)}
+.supp-cat-icon.amber{background:rgba(255,159,10,0.08);border:1px solid rgba(255,159,10,0.2)}
+.supp-cat-info{flex:1}
+.supp-cat-name-en{font-size:14px;font-weight:700;color:var(--white);letter-spacing:-0.2px}
+.supp-cat-name-cn{font-size:11px;font-weight:400;color:var(--gray3);margin-top:1px}
+.supp-cat-count{font-size:12px;font-weight:600;color:var(--gray3);background:var(--black3);border:1px solid var(--border);border-radius:20px;padding:3px 10px}
+
+.supp-item{padding:14px 20px;display:flex;align-items:flex-start;gap:12px;border-bottom:1px solid var(--border);transition:background 0.2s}
+.supp-item:last-child{border-bottom:none}
+.supp-item:active{background:var(--black2)}
+.supp-item-dot{width:8px;height:8px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.supp-item-dot.daily{background:var(--green);box-shadow:0 0 6px rgba(0,230,118,0.3)}
+.supp-item-dot.pre{background:var(--blue);box-shadow:0 0 6px rgba(59,130,246,0.3)}
+.supp-item-dot.post{background:var(--purple);box-shadow:0 0 6px rgba(168,85,247,0.3)}
+.supp-item-dot.occasional{background:var(--amber);box-shadow:0 0 6px rgba(255,159,10,0.3)}
+.supp-item-body{flex:1}
+.supp-item-name{font-size:14px;font-weight:600;color:var(--white);line-height:1.4}
+.supp-item-name-cn{font-size:12px;font-weight:400;color:var(--gray3);margin-top:1px}
+.supp-item-meta{display:flex;align-items:center;gap:8px;margin-top:4px;flex-wrap:wrap}
+.supp-item-dose{font-size:11px;font-weight:600;color:var(--gray2);background:var(--black2);border:1px solid var(--border);border-radius:6px;padding:2px 8px}
+.supp-item-tag{font-size:10px;font-weight:600;color:var(--green);background:var(--green-dim);border:1px solid rgba(0,230,118,0.15);border-radius:6px;padding:2px 8px}
+.supp-item-tag.pre{color:var(--blue);background:rgba(59,130,246,0.06);border-color:rgba(59,130,246,0.15)}
+.supp-item-tag.post{color:var(--purple);background:rgba(168,85,247,0.06);border-color:rgba(168,85,247,0.15)}
+.supp-item-tag.occ{color:var(--amber);background:rgba(255,159,10,0.06);border-color:rgba(255,159,10,0.15)}
+
+.supp-schedule-card{margin:0 16px 12px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.supp-schedule-header{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.supp-schedule-icon{width:32px;height:32px;border-radius:8px;background:var(--green-dim);border:1px solid rgba(0,230,118,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.supp-schedule-title-en{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray2)}
+.supp-schedule-title-cn{font-size:11px;font-weight:500;color:var(--gray3);margin-top:1px}
+.supp-schedule-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.supp-schedule-slot{background:var(--black2);border-radius:12px;padding:12px 14px;border:1px solid rgba(255,255,255,0.03)}
+.supp-schedule-time{font-size:13px;font-weight:700;color:var(--white);margin-bottom:6px}
+.supp-schedule-list{font-size:12px;color:var(--gray2);line-height:1.6}
+.supp-schedule-list strong{color:var(--white)}
 </style>
 </head>
 <body>
@@ -866,6 +917,59 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text'
 </div>
 
 <!-- ======================================================
+     PAGE: SUPPLEMENTS
+     ====================================================== -->
+<div id="page-supplements" class="page">
+
+  <div class="supp-hero">
+    <div class="supp-hero-label-en">Supplement Stack</div>
+    <div class="supp-hero-label-cn">补剂方案</div>
+    <div class="supp-hero-title">FUEL<br>YOUR<br>GAINS</div>
+    <div class="supp-hero-sub">Every supplement has a purpose. <strong>精准补给，事半功倍。</strong></div>
+  </div>
+
+  <div class="section-label">
+    <div class="section-label-en">Daily Stack</div>
+    <div class="section-label-cn">日常补剂</div>
+  </div>
+
+  <div class="supp-category" id="supp-daily"></div>
+
+  <div class="section-label">
+    <div class="section-label-en">Workout Stack</div>
+    <div class="section-label-cn">训练补剂</div>
+  </div>
+
+  <div class="supp-category" id="supp-workout"></div>
+
+  <div class="section-label">
+    <div class="section-label-en">Health & Recovery</div>
+    <div class="section-label-cn">健康与恢复</div>
+  </div>
+
+  <div class="supp-category" id="supp-health"></div>
+
+  <div class="section-label">
+    <div class="section-label-en">Schedule</div>
+    <div class="section-label-cn">服用计划</div>
+  </div>
+
+  <div class="supp-schedule-card">
+    <div class="supp-schedule-header">
+      <div class="supp-schedule-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#00E676"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+      </div>
+      <div>
+        <div class="supp-schedule-title-en">Daily Timeline</div>
+        <div class="supp-schedule-title-cn">每日时间线</div>
+      </div>
+    </div>
+    <div class="supp-schedule-grid" id="supp-schedule"></div>
+  </div>
+
+</div>
+
+<!-- ======================================================
      TAB BAR
      ====================================================== -->
 <div class="tab-bar">
@@ -897,6 +1001,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text'
     <div class="tab-label-en">Gallery</div>
     <div class="tab-label-cn">画廊</div>
   </div>
+  <div class="tab" onclick="SCULPT.switchTab('supplements')">
+    <div class="tab-icon-wrap">
+      <svg class="tab-icon" viewBox="0 0 24 24"><path d="M6 3h12v2H6zm11 3H7c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-1 9h-2.5v2.5h-3V15H8v-3h2.5V9.5h3V12H16v3z"/></svg>
+    </div>
+    <div class="tab-label-en">Supps</div>
+    <div class="tab-label-cn">补给</div>
+  </div>
 </div>
 
 <script>
@@ -920,7 +1031,30 @@ window.SCULPT = (function() {
       { src: 'photo_boulder_02.jpg', date: '2026-06-16', caption: 'Bouldering &middot; Full Send' },
       { src: 'photo_boulder_03.jpg', date: '2026-06-16', caption: 'Bouldering &middot; Hang' },
       { src: 'photo_boulder_04.jpg', date: '2026-06-16', caption: 'Bouldering &middot; Slab' }
-    ]
+    ],
+    supplements: {
+      daily: [
+        { name: 'Whey Protein', nameCn: '乳清蛋白', dose: '25g', timing: 'daily', timingCn: '每日', note: 'Morning shake · 早餐奶昔' },
+        { name: 'Creatine Monohydrate', nameCn: '一水肌酸', dose: '5g', timing: 'daily', timingCn: '每日', note: 'Any time · 任意时间' },
+        { name: 'Fish Oil (Omega-3)', nameCn: '鱼油', dose: '2g EPA+DHA', timing: 'daily', timingCn: '每日', note: 'With meals · 随餐' }
+      ],
+      workout: [
+        { name: 'Caffeine', nameCn: '咖啡因', dose: '200mg', timing: 'pre', timingCn: '训练前', note: '30 min before · 训练前30分钟' },
+        { name: 'Beta-Alanine', nameCn: 'β-丙氨酸', dose: '3g', timing: 'pre', timingCn: '训练前', note: 'Pre-workout · 训练前' },
+        { name: 'Whey Protein', nameCn: '乳清蛋白', dose: '25g', timing: 'post', timingCn: '训练后', note: 'Within 30 min · 30分钟内' }
+      ],
+      health: [
+        { name: 'Vitamin D3', nameCn: '维生素D3', dose: '2000 IU', timing: 'daily', timingCn: '每日', note: 'Morning · 早晨' },
+        { name: 'Magnesium', nameCn: '镁', dose: '400mg', timing: 'occasional', timingCn: '按需', note: 'Before bed · 睡前' },
+        { name: 'Zinc', nameCn: '锌', dose: '15mg', timing: 'daily', timingCn: '每日', note: 'With food · 随餐' }
+      ],
+      schedule: [
+        { time: '07:00', timeCn: '早晨', items: ['Whey Protein · 乳清蛋白', 'Vitamin D3 · 维生素D3'] },
+        { time: 'Pre-Workout', timeCn: '训练前', items: ['Caffeine · 咖啡因', 'Beta-Alanine · β-丙氨酸'] },
+        { time: 'Post-Workout', timeCn: '训练后', items: ['Whey Protein · 乳清蛋白', 'Creatine · 肌酸'] },
+        { time: '22:00', timeCn: '睡前', items: ['Magnesium · 镁', 'Fish Oil · 鱼油'] }
+      ]
+    }
   };
 
   const $ = id => document.getElementById(id);
@@ -1172,16 +1306,68 @@ window.SCULPT = (function() {
     if ($('bmi-dot')) $('bmi-dot').style.left = bmiPct + '%';
   }
 
+  function renderSupplements() {
+    const s = D.supplements;
+    const catMap = {
+      daily: { el: 'supp-daily', nameEn: 'Daily Essentials', nameCn: '日常必需', icon: 'green', color: '#00E676' },
+      workout: { el: 'supp-workout', nameEn: 'Workout Stack', nameCn: '训练专用', icon: 'blue', color: '#3B82F6' },
+      health: { el: 'supp-health', nameEn: 'Health & Recovery', nameCn: '健康恢复', icon: 'purple', color: '#A855F7' }
+    };
+    Object.keys(catMap).forEach(key => {
+      const cfg = catMap[key];
+      const items = s[key];
+      const container = $(cfg.el);
+      if (!container) return;
+      const dotCls = { daily: 'daily', pre: 'pre', post: 'post', occasional: 'occasional' };
+      const tagCls = { daily: '', pre: 'pre', post: 'post', occasional: 'occ' };
+      container.innerHTML = `
+        <div class="supp-cat-header">
+          <div class="supp-cat-icon ${cfg.icon}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="${cfg.color}"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/></svg>
+          </div>
+          <div class="supp-cat-info">
+            <div class="supp-cat-name-en">${cfg.nameEn}</div>
+            <div class="supp-cat-name-cn">${cfg.nameCn}</div>
+          </div>
+          <div class="supp-cat-count">${items.length}</div>
+        </div>
+        ${items.map(it => `
+          <div class="supp-item">
+            <div class="supp-item-dot ${dotCls[it.timing] || 'daily'}"></div>
+            <div class="supp-item-body">
+              <div class="supp-item-name">${it.name}</div>
+              <div class="supp-item-name-cn">${it.nameCn}</div>
+              <div class="supp-item-meta">
+                <span class="supp-item-dose">${it.dose}</span>
+                <span class="supp-item-tag ${tagCls[it.timing] || ''}">${it.timingCn}</span>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      `;
+    });
+    const sched = $('supp-schedule');
+    if (sched) {
+      sched.innerHTML = s.schedule.map(slot => `
+        <div class="supp-schedule-slot">
+          <div class="supp-schedule-time">${slot.time}</div>
+          <div class="supp-schedule-list">${slot.items.map(it => `<div>${it}</div>`).join('')}</div>
+        </div>
+      `).join('');
+    }
+  }
+
   function render() {
     renderBody();
     renderTrends();
     renderGallery();
     renderPullups();
+    renderSupplements();
   }
 
   function switchTab(tab) {
-    const map = { body:'page-body', trends:'page-trends', train:'page-train', gallery:'page-gallery' };
-    const order = ['body','trends','train','gallery'];
+    const map = { body:'page-body', trends:'page-trends', train:'page-train', gallery:'page-gallery', supplements:'page-supplements' };
+    const order = ['body','trends','train','gallery','supplements'];
     Object.values(map).forEach(id => { const el=$(id); if(el) el.classList.remove('active'); });
     document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
     const pg = $(map[tab]); if(pg) pg.classList.add('active');
